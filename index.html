@@ -2397,5 +2397,609 @@ function makeGradient(){
 }
 
         </script>
+<script>
+/*
+========================================
+TOOLIX SEO ROUTER
+========================================
+*/
+
+const TOOLIX_SEO = {
+
+  "/": {
+    title: "Toolix — бесплатные онлайн-инструменты",
+    description:
+      "Toolix — бесплатные онлайн-инструменты: QR-коды, калькуляторы, генераторы, работа с изображениями, текстом, JSON, Base64 и другие полезные инструменты.",
+    heading: "Бесплатные онлайн-инструменты",
+    text:
+      "Toolix объединяет полезные инструменты для работы с текстом, изображениями, QR-кодами, расчётами и данными. Большинство функций работает прямо в браузере без регистрации."
+  },
+
+  "/qr-generator": {
+    title: "QR Code Generator — создать QR-код онлайн | Toolix",
+    description:
+      "Бесплатный генератор QR-кодов из текста или ссылки. Создайте QR-код онлайн прямо в браузере без регистрации.",
+    heading: "QR Code Generator",
+    text:
+      "QR Code Generator позволяет быстро создать QR-код из ссылки, текста или другой информации. Введите данные, нажмите кнопку создания и используйте полученный QR-код."
+  },
+
+  "/wifi-qr": {
+    title: "Wi-Fi QR Code Generator — QR-код для Wi-Fi | Toolix",
+    description:
+      "Создайте QR-код для Wi-Fi. Поделитесь названием сети и паролем без ручного ввода.",
+    heading: "Wi-Fi QR Code Generator",
+    text:
+      "Введите название Wi-Fi сети, пароль и тип защиты. Toolix создаст QR-код, который можно отсканировать камерой телефона."
+  },
+
+  "/phone-qr": {
+    title: "Phone QR Generator — QR-код для телефона | Toolix",
+    description:
+      "Создайте QR-код с номером телефона для быстрого звонка.",
+    heading: "Phone QR Generator",
+    text:
+      "Введите номер телефона и создайте QR-код. После сканирования пользователь сможет быстро открыть номер для звонка."
+  },
+
+  "/email-qr": {
+    title: "Email QR Generator — QR-код для email | Toolix",
+    description:
+      "Создайте QR-код для email с адресом, темой и текстом сообщения.",
+    heading: "Email QR Generator",
+    text:
+      "Сформируйте QR-код, который открывает почтовое приложение с готовым адресом, темой и текстом письма."
+  },
+
+  "/contact-qr": {
+    title: "Contact QR Generator — QR-код контакта | Toolix",
+    description:
+      "Создайте QR-код с контактными данными в формате vCard.",
+    heading: "Contact QR Generator",
+    text:
+      "Создайте QR-код с именем, телефоном и email. Такой код удобно использовать на визитках и цифровых профилях."
+  },
+
+  "/percentage-calculator": {
+    title: "Percentage Calculator — калькулятор процентов | Toolix",
+    description:
+      "Бесплатный калькулятор процентов онлайн. Узнайте процент от числа за несколько секунд.",
+    heading: "Percentage Calculator",
+    text:
+      "Введите число и процент, чтобы быстро получить результат. Калькулятор подходит для расчёта процентов, скидок и других повседневных задач."
+  },
+
+  "/discount-calculator": {
+    title: "Discount Calculator — калькулятор скидки | Toolix",
+    description:
+      "Рассчитайте цену после скидки онлайн. Узнайте сумму экономии и итоговую стоимость товара.",
+    heading: "Discount Calculator",
+    text:
+      "Введите исходную цену и процент скидки. Toolix покажет размер скидки и конечную цену."
+  },
+
+  "/markup-calculator": {
+    title: "Markup Calculator — калькулятор наценки | Toolix",
+    description:
+      "Рассчитайте цену товара с заданной наценкой онлайн.",
+    heading: "Markup Calculator",
+    text:
+      "Введите исходную стоимость и процент наценки. Калькулятор покажет размер наценки и итоговую цену."
+  },
+
+  "/vat-calculator": {
+    title: "VAT Calculator — калькулятор НДС | Toolix",
+    description:
+      "Добавьте НДС к цене онлайн и быстро рассчитайте итоговую стоимость.",
+    heading: "VAT Calculator",
+    text:
+      "Введите цену и процент НДС. Toolix рассчитает сумму налога и цену с учётом НДС."
+  },
+
+  "/age-calculator": {
+    title: "Age Calculator — калькулятор возраста | Toolix",
+    description:
+      "Рассчитайте возраст по дате рождения онлайн.",
+    heading: "Age Calculator",
+    text:
+      "Выберите дату рождения, и Toolix рассчитает полный возраст пользователя в годах."
+  },
+
+  "/date-difference": {
+    title: "Date Difference Calculator — дни между датами | Toolix",
+    description:
+      "Узнайте количество дней между двумя датами с помощью бесплатного калькулятора.",
+    heading: "Date Difference Calculator",
+    text:
+      "Выберите две даты, чтобы узнать точное количество дней между ними."
+  },
+
+  "/bmi-calculator": {
+    title: "BMI Calculator — калькулятор ИМТ | Toolix",
+    description:
+      "Рассчитайте индекс массы тела онлайн с помощью бесплатного BMI Calculator.",
+    heading: "BMI Calculator",
+    text:
+      "Введите рост и вес, чтобы получить значение индекса массы тела. Результат носит справочный характер."
+  },
+
+  "/grade-calculator": {
+    title: "Grade Calculator — калькулятор среднего балла | Toolix",
+    description:
+      "Рассчитайте средний балл по списку оценок онлайн.",
+    heading: "Grade Calculator",
+    text:
+      "Введите оценки через запятую. Toolix рассчитает их среднее значение."
+  },
+
+  "/ratio-calculator": {
+    title: "Ratio Calculator — калькулятор пропорций | Toolix",
+    description:
+      "Решите простую пропорцию онлайн с помощью бесплатного калькулятора.",
+    heading: "Ratio Calculator",
+    text:
+      "Введите известные значения пропорции, чтобы получить неизвестное значение X."
+  },
+
+  "/random-number-generator": {
+    title: "Random Number Generator — случайное число | Toolix",
+    description:
+      "Бесплатный генератор случайных чисел из заданного диапазона.",
+    heading: "Random Number Generator",
+    text:
+      "Укажите минимальное и максимальное значение, затем получите случайное число."
+  },
+
+  "/password-generator": {
+    title: "Password Generator — генератор паролей | Toolix",
+    description:
+      "Создайте случайный пароль нужной длины прямо в браузере.",
+    heading: "Password Generator",
+    text:
+      "Выберите длину и сгенерируйте случайный пароль. Генерация выполняется локально в браузере."
+  },
+
+  "/nickname-generator": {
+    title: "Nickname Generator — генератор никнеймов | Toolix",
+    description:
+      "Генератор случайных игровых никнеймов для игр и социальных сетей.",
+    heading: "Nickname Generator",
+    text:
+      "Нажмите кнопку, чтобы получить случайный никнейм. Можно генерировать новые варианты сколько угодно раз."
+  },
+
+  "/idea-generator": {
+    title: "Idea Generator — генератор идей | Toolix",
+    description:
+      "Генератор случайных идей для сайтов, приложений, игр и проектов.",
+    heading: "Idea Generator",
+    text:
+      "Выберите тип проекта и получите случайную идею, которую можно использовать как отправную точку."
+  },
+
+  "/json-formatter": {
+    title: "JSON Formatter — форматирование JSON онлайн | Toolix",
+    description:
+      "Отформатируйте JSON онлайн и сделайте структуру данных удобной для чтения.",
+    heading: "JSON Formatter",
+    text:
+      "Вставьте JSON и нажмите кнопку форматирования. Toolix красиво отобразит структуру данных."
+  },
+
+  "/json-minifier": {
+    title: "JSON Minifier — сжать JSON онлайн | Toolix",
+    description:
+      "Уменьшите размер JSON, удалив лишние пробелы и переносы строк.",
+    heading: "JSON Minifier",
+    text:
+      "Инструмент превращает форматированный JSON в компактную строку."
+  },
+
+  "/base64": {
+    title: "Base64 Encoder Decoder — Base64 онлайн | Toolix",
+    description:
+      "Кодируйте и декодируйте текст в Base64 прямо в браузере.",
+    heading: "Base64 Encoder & Decoder",
+    text:
+      "Введите текст и выберите кодирование или декодирование. Обработка выполняется локально."
+  },
+
+  "/url-encoder": {
+    title: "URL Encoder Decoder — кодирование URL | Toolix",
+    description:
+      "Кодируйте и декодируйте URL онлайн с помощью бесплатного инструмента Toolix.",
+    heading: "URL Encoder & Decoder",
+    text:
+      "Инструмент помогает преобразовывать специальные символы URL в безопасный формат и обратно."
+  },
+
+  "/html-encoder": {
+    title: "HTML Encoder Decoder — HTML онлайн | Toolix",
+    description:
+      "Закодируйте или декодируйте специальные HTML-символы онлайн.",
+    heading: "HTML Encoder & Decoder",
+    text:
+      "Полезно для безопасного отображения HTML-кода внутри текста."
+  },
+
+  "/uuid-generator": {
+    title: "UUID Generator — генератор UUID v4 | Toolix",
+    description:
+      "Создайте случайный UUID v4 онлайн бесплатно.",
+    heading: "UUID Generator",
+    text:
+      "Генератор создаёт случайный UUID v4 для приложений, API, баз данных и других проектов."
+  },
+
+  "/color-generator": {
+    title: "HEX Color Generator — генератор цветов | Toolix",
+    description:
+      "Сгенерируйте случайный HEX-цвет онлайн.",
+    heading: "HEX Color Generator",
+    text:
+      "Создайте случайный шестнадцатеричный цвет и используйте его в дизайне или CSS."
+  },
+
+  "/jwt-decoder": {
+    title: "JWT Decoder — декодер JWT онлайн | Toolix",
+    description:
+      "Посмотрите payload JWT-токена прямо в браузере. Токен не отправляется на сервер.",
+    heading: "JWT Decoder",
+    text:
+      "Вставьте JWT, чтобы посмотреть его payload. Toolix выполняет декодирование локально."
+  },
+
+  "/image-converter": {
+    title: "Image Converter — PNG JPG WebP конвертер | Toolix",
+    description:
+      "Конвертируйте изображения между PNG, JPG и WebP прямо в браузере.",
+    heading: "Image Converter",
+    text:
+      "Выберите изображение и формат. Файл преобразуется локально без загрузки на сервер."
+  },
+
+  "/image-compressor": {
+    title: "Image Compressor — сжать изображение онлайн | Toolix",
+    description:
+      "Уменьшите размер JPG или другого изображения онлайн без загрузки на сервер.",
+    heading: "Image Compressor",
+    text:
+      "Выберите изображение и качество сжатия. Toolix создаст более компактную версию файла."
+  },
+
+  "/image-resizer": {
+    title: "Image Resizer — изменить размер изображения | Toolix",
+    description:
+      "Измените ширину и высоту изображения онлайн.",
+    heading: "Image Resizer",
+    text:
+      "Укажите нужную ширину и высоту. Изображение будет обработано прямо в браузере."
+  },
+
+  "/text-counter": {
+    title: "Word Counter — счётчик слов и символов | Toolix",
+    description:
+      "Посчитайте количество слов, символов и строк в тексте онлайн.",
+    heading: "Word & Character Counter",
+    text:
+      "Вставьте текст, и Toolix автоматически покажет количество символов, слов и строк."
+  },
+
+  "/text-cleaner": {
+    title: "Text Cleaner — очистка текста онлайн | Toolix",
+    description:
+      "Уберите лишние пробелы, пустые строки и приведите текст к аккуратному виду.",
+    heading: "Text Cleaner",
+    text:
+      "Инструмент очищает текст от лишних пробелов и пустых строк."
+  },
+
+  "/remove-duplicates": {
+    title: "Remove Duplicate Lines — удалить дубли | Toolix",
+    description:
+      "Удалите повторяющиеся строки из текста онлайн.",
+    heading: "Remove Duplicate Lines",
+    text:
+      "Вставьте список строк, и Toolix оставит только уникальные значения."
+  },
+
+  "/case-converter": {
+    title: "Case Converter — изменить регистр текста | Toolix",
+    description:
+      "Переведите текст в UPPERCASE, lowercase или Title Case онлайн.",
+    heading: "Case Converter",
+    text:
+      "Быстро изменяйте регистр текста под нужный формат."
+  },
+
+  "/slug-generator": {
+    title: "Slug Generator — создать URL slug | Toolix",
+    description:
+      "Превратите заголовок или фразу в аккуратный URL slug.",
+    heading: "Slug Generator",
+    text:
+      "Введите текст, и Toolix создаст компактную строку, подходящую для URL."
+  }
+};
+
+
+/*
+========================================
+META TAGS
+========================================
+*/
+
+function setMeta(name,content){
+
+  let tag=document.querySelector(
+    `meta[name="${name}"]`
+  );
+
+  if(!tag){
+
+    tag=document.createElement("meta");
+
+    tag.setAttribute("name",name);
+
+    document.head.appendChild(tag);
+
+  }
+
+  tag.setAttribute("content",content);
+
+}
+
+
+function setProperty(property,content){
+
+  let tag=document.querySelector(
+    `meta[property="${property}"]`
+  );
+
+  if(!tag){
+
+    tag=document.createElement("meta");
+
+    tag.setAttribute("property",property);
+
+    document.head.appendChild(tag);
+
+  }
+
+  tag.setAttribute("content",content);
+
+}
+
+
+/*
+========================================
+SEO PAGE
+========================================
+*/
+
+function updateToolixSEO(){
+
+  let path=window.location.pathname;
+
+  if(path.length>1 && path.endsWith("/")){
+    path=path.slice(0,-1);
+  }
+
+  const data=
+    TOOLIX_SEO[path] ||
+    TOOLIX_SEO["/"];
+
+  document.title=data.title;
+
+  setMeta(
+    "description",
+    data.description
+  );
+
+  setProperty(
+    "og:title",
+    data.title
+  );
+
+  setProperty(
+    "og:description",
+    data.description
+  );
+
+  setProperty(
+    "og:type",
+    "website"
+  );
+
+  setProperty(
+    "og:url",
+    window.location.href
+  );
+
+  setProperty(
+    "og:site_name",
+    "Toolix"
+  );
+
+
+  /*
+  Добавляем уникальный текст страницы.
+  */
+
+  let seoBox=document.getElementById(
+    "toolix-seo-description"
+  );
+
+  if(!seoBox){
+
+    seoBox=document.createElement("section");
+
+    seoBox.id="toolix-seo-description";
+
+    seoBox.style.cssText=
+      "background:var(--panel);" +
+      "border:1px solid var(--border);" +
+      "border-radius:20px;" +
+      "padding:22px;" +
+      "margin:20px 0;" +
+      "line-height:1.7;";
+
+    const main=document.querySelector("main");
+
+    if(main){
+      main.insertBefore(
+        seoBox,
+        main.firstElementChild
+      );
+    }
+
+  }
+
+  seoBox.innerHTML=`
+    <h2 style="margin-bottom:10px">
+      ${escapeSEO(data.heading)}
+    </h2>
+
+    <p style="color:var(--muted)">
+      ${escapeSEO(data.text)}
+    </p>
+  `;
+
+}
+
+
+/*
+========================================
+SEO SAFE TEXT
+========================================
+*/
+
+function escapeSEO(text){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/*
+========================================
+URL → TOOL
+========================================
+*/
+
+const TOOL_ROUTES={
+
+  "/qr-generator":"qr-tool",
+  "/wifi-qr":"wifi-tool",
+  "/phone-qr":"phone-tool",
+  "/email-qr":"email-tool",
+  "/contact-qr":"contact-tool",
+
+  "/percentage-calculator":"percent-tool",
+  "/discount-calculator":"discount-tool",
+  "/markup-calculator":"markup-tool",
+  "/vat-calculator":"vat-tool",
+
+  "/age-calculator":"age-tool",
+  "/date-difference":"days-tool",
+  "/bmi-calculator":"bmi-tool",
+  "/grade-calculator":"grade-tool",
+  "/ratio-calculator":"ratio-tool",
+  "/random-number-generator":"random-tool",
+
+  "/password-generator":"password-tool",
+  "/nickname-generator":"nickname-tool",
+  "/idea-generator":"idea-tool",
+
+  "/json-formatter":"json-tool",
+  "/json-minifier":"jsonmin-tool",
+  "/base64":"base64-tool",
+  "/url-encoder":"url-tool",
+  "/html-encoder":"html-tool",
+  "/uuid-generator":"uuid-tool",
+  "/color-generator":"color-tool",
+  "/jwt-decoder":"jwt-tool",
+
+  "/image-converter":"image-converter-tool",
+  "/image-compressor":"image-compress-tool",
+  "/image-resizer":"resize-image-tool",
+
+  "/text-counter":"text-counter-tool",
+  "/text-cleaner":"text-clean-tool",
+  "/remove-duplicates":"duplicates-tool",
+  "/case-converter":"case-tool",
+  "/slug-generator":"slug-tool"
+
+};
+
+
+function openRouteTool(){
+
+  const path=
+    window.location.pathname
+      .replace(/\/$/,"") || "/";
+
+  const target=TOOL_ROUTES[path];
+
+  if(!target) return;
+
+  const element=
+    document.getElementById(target);
+
+  if(!element) return;
+
+  setTimeout(()=>{
+
+    element.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  },200);
+
+}
+
+
+/*
+========================================
+INTERNAL TOOL LINKS
+========================================
+*/
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateToolixSEO();
+
+    openRouteTool();
+
+  }
+);
+
+
+/*
+========================================
+BACK/FORWARD
+========================================
+*/
+
+window.addEventListener(
+  "popstate",
+  function(){
+
+    updateToolixSEO();
+
+    openRouteTool();
+
+  }
+);
+
+  </script>
 </body>
   </html>
