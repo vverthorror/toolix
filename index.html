@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Toolix — бесплатные онлайн-инструменты: QR-коды, калькуляторы, генераторы и инструменты для изображений.">
+  <title>Toolix — бесплатные инструменты онлайн</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0b0d12;
+      --card: #131722;
+      --card2: #191e2a;
+      --text: #f5f7fb;
+      --muted: #929aaa;
+      --border: #272d3a;
+      --accent: #6c63ff;
+      --accent2: #5148e8;
+      --green: #35d07f;
+      --danger: #ff5c70;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, calc(100% - 30px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 13, 18, 0.86);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 70px 0 45px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(108, 99, 255, 0.12);
+      border: 1px solid rgba(108, 99, 255, 0.28);
+      color: #b6b2ff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 70px);
+      line-height: 1;
+      margin-bottom: 18px;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 670px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .search-wrap {
+      max-width: 700px;
+      margin: 30px auto 0;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 16px 18px;
+      font-size: 16px;
+      border-radius: 14px;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: var(--accent);
+    }
+
+    section {
+      padding: 20px 0 50px;
+    }
+
+    .section-title {
+      margin-bottom: 18px;
+      font-size: 25px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 19px;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #3a4152;
+      background: var(--card2);
+    }
+
+    .icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(108, 99, 255, 0.13);
+      margin-bottom: 15px;
+      font-size: 21px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .tool-section {
+      scroll-margin-top: 90px;
+    }
+
+    .tool-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .tool-box h2 {
+      margin-bottom: 8px;
+    }
+
+    .tool-description {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .input {
+      width: 100%;
+      background: #0d1016;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 13px 14px;
+      border-radius: 11px;
+      outline: none;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    textarea.input {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .input:focus {
+      border-color: var(--accent);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 11px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+    }
+
+    .btn-secondary {
+      background: #202632;
+      color: var(--text);
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #0d1016;
+      border: 1px solid var(--border);
+    }
+
+    #qrcode,
+    #imageQr {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 20px;
+      margin: 10px 0;
+    }
+
+    .preview {
+      max-width: 100%;
+      max-height: 320px;
+      border-radius: 12px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .ad-placeholder {
+      min-height: 100px;
+      border: 1px dashed #343b4a;
+      color: #666f81;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      margin: 25px 0;
+      text-align: center;
+      padding: 15px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0 40px;
+      margin-top: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 20px, 1150px);
+      }
+
+      .hero {
+        padding-top: 45px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-box {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">Tool<span>ix</span></div>
+    <div style="color:var(--muted);font-size:13px;">Бесплатные инструменты</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="container">
+
+    <section class="hero">
+      <div class="badge">⚡ Всё прямо в браузере</div>
+      <h1>Tool<span style="color:var(--accent)">ix</span></h1>
+      <p>
+        Бесплатные онлайн-инструменты для QR-кодов, ссылок, изображений,
+        расчётов и генерации полезных вещей.
+      </p>
+
+      <div class="search-wrap">
+        <input
+          id="search"
+          class="search"
+          type="text"
+          placeholder="🔎 Найти инструмент..."
+          oninput="searchTools()"
+        >
+      </div>
+    </section>
+
+    <div class="ad-placeholder">
+      Здесь позже можно разместить рекламный блок
+    </div>
+
+    <section>
+      <h2 class="section-title">🧰 Инструменты</h2>
+
+      <div class="grid" id="toolsGrid">
+
+        <div class="card" data-name="qr код ссылка текст" onclick="scrollToTool('qr-tool')">
+          <div class="icon">▦</div>
+          <h3>QR-код</h3>
+          <p>Создай QR из ссылки или любого текста.</p>
+        </div>
+
+        <div class="card" data-name="изображение фото qr код" onclick="scrollToTool('image-qr-tool')">
+          <div class="icon">🖼️</div>
+          <h3>Фото → QR</h3>
+          <p>Преврати небольшое изображение в QR-код.</p>
+        </div>
+
+        <div class="card" data-name="проценты калькулятор" onclick="scrollToTool('percent-tool')">
+          <div class="icon">%</div>
+          <h3>Проценты</h3>
+          <p>Быстрый расчёт процентов от числа.</p>
+        </div>
+
+        <div class="card" data-name="скидка калькулятор" onclick="scrollToTool('discount-tool')">
+          <div class="icon">🏷️</div>
+          <h3>Скидка</h3>
+          <p>Узнай цену после скидки.</p>
+        </div>
+
+        <div class="card" data-name="возраст калькулятор" onclick="scrollToTool('age-tool')">
+          <div class="icon">🎂</div>
+          <h3>Возраст</h3>
+          <p>Посчитай точный возраст по дате рождения.</p>
+        </div>
+
+        <div class="card" data-name="пароль генератор" onclick="scrollToTool('password-tool')">
+          <div class="icon">🔐</div>
+          <h3>Генератор паролей</h3>
+          <p>Создай случайный безопасный пароль.</p>
+        </div>
+
+        <div class="card" data-name="никнейм генератор" onclick="scrollToTool('nickname-tool')">
+          <div class="icon">🎮</div>
+          <h3>Генератор ников</h3>
+          <p>Случайные игровые никнеймы.</p>
+        </div>
+
+        <div class="card" data-name="случайное число генератор" onclick="scrollToTool('random-tool')">
+          <div class="icon">🎲</div>
+          <h3>Случайное число</h3>
+          <p>Выбери случайное число из диапазона.</p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="qr-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>▦ Генератор QR-кода</h2>
+        <p class="tool-description">
+          Введи ссылку или текст и получи QR-код.
+        </p>
+
+        <input
+          id="qrInput"
+          class="input"
+          placeholder="Например: https://example.com"
+        >
+
+        <div class="buttons">
+          <button class="btn-primary" onclick="generateQR()">Создать QR</button>
+          <button class="btn-secondary" onclick="clearQR()">Очистить</button>
+        </div>
+
+        <div class="result">
+          <div id="qrcode"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="image-qr-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🖼️ Фото → QR-код</h2>
+        <p class="tool-description">
+          Выбери небольшое изображение. Оно будет преобразовано в данные,
+          которые можно поместить внутрь QR-кода.
+        </p>
+
+        <input id="imageInput" class="input" type="file" accept="image/*">
+
+        <img id="imagePreview" class="preview">
+
+        <div class="buttons">
+          <button class="btn-primary" onclick="generateImageQR()">
+            Создать QR
+          </button>
+        </div>
+
+        <div class="result">
+          <div id="imageQr"></div>
+          <p id="imageQrInfo" style="color:var(--muted);font-size:13px;text-align:center;"></p>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="percent-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>% Проценты</h2>
+        <p class="tool-description">
+          Сколько составляет X% от числа?
+        </p>
+
+        <div class="calc-grid">
+          <input id="percentNumber" class="input" type="number" placeholder="Число">
+          <input id="percentValue" class="input" type="number" placeholder="Процент">
+        </div>
+
+        <button class="btn-primary" onclick="calculatePercent()">Рассчитать</button>
+
+        <div id="percentResult" class="result hidden"></div>
+      </div>
+    </section>
+
+
+    <section id="discount-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🏷️ Калькулятор скидки</h2>
+        <p class="tool-description">
+          Узнай конечную цену товара.
+        </p>
+
+        <div class="calc-grid">
+          <input id="price" class="input" type="number" placeholder="Цена">
+          <input id="discount" class="input" type="number" placeholder="Скидка %">
+        </div>
+
+        <button class="btn-primary" onclick="calculateDiscount()">Рассчитать</button>
+
+        <div id="discountResult" class="result hidden"></div>
+      </div>
+    </section>
+
+
+    <section id="age-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🎂 Калькулятор возраста</h2>
+        <p class="tool-description">
+          Введи дату рождения.
+        </p>
+
+        <input id="birthDate" class="input" type="date">
+
+        <button class="btn-primary" onclick="calculateAge()">Рассчитать возраст</button>
+
+        <div id="ageResult" class="result hidden"></div>
+      </div>
+    </section>
+
+
+    <section id="password-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🔐 Генератор паролей</h2>
+        <p class="tool-description">
+          Выбери длину пароля.
+        </p>
+
+        <input
+          id="passwordLength"
+          class="input"
+          type="number"
+          min="4"
+          max="64"
+          value="16"
+          placeholder="Длина"
+        >
+
+        <button class="btn-primary" onclick="generatePassword()">Создать пароль</button>
+
+        <div class="result">
+          <input id="passwordResult" class="input" readonly>
+          <button class="btn-secondary" onclick="copyText('passwordResult')">
+            Копировать
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="nickname-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🎮 Генератор ников</h2>
+        <p class="tool-description">
+          Создай случайный ник.
+        </p>
+
+        <button class="btn-primary" onclick="generateNickname()">Создать ник</button>
+
+        <div class="result">
+          <input id="nicknameResult" class="input" readonly>
+          <button class="btn-secondary" onclick="copyText('nicknameResult')">
+            Копировать
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="random-tool" class="tool-section">
+      <div class="tool-box">
+        <h2>🎲 Случайное число</h2>
+        <p class="tool-description">
+          Получи случайное число из диапазона.
+        </p>
+
+        <div class="calc-grid">
+          <input id="randomMin" class="input" type="number" value="1" placeholder="От">
+          <input id="randomMax" class="input" type="number" value="100" placeholder="До">
+        </div>
+
+        <button class="btn-primary" onclick="generateRandom()">Получить число</button>
+
+        <div id="randomResult" class="result hidden"></div>
+      </div>
+    </section>
+
+    <div class="ad-placeholder">
+      Рекламное место №2
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    © <span id="year"></span> Toolix · Бесплатные инструменты онлайн
+  </div>
+</footer>
+
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+
+  function scrollToTool(id) {
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+
+  function searchTools() {
+    const query = document
+      .getElementById("search")
+      .value
+      .toLowerCase()
+      .trim();
+
+    document.querySelectorAll(".card").forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+
+      if (!query || name.includes(query)) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+
+  function generateQR() {
+    const value = document.getElementById("qrInput").value.trim();
+    const container = document.getElementById("qrcode");
+
+    container.innerHTML = "";
+
+    if (!value) {
+      container.innerHTML = "<p style='color:#ff6b78;'>Введите текст или ссылку.</p>";
+      return;
+    }
+
+    new QRCode(container, {
+      text: value,
+      width: 220,
+      height: 220,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+
+  function clearQR() {
+    document.getElementById("qrInput").value = "";
+    document.getElementById("qrcode").innerHTML = "";
+  }
+
+
+  function calculatePercent() {
+    const number = Number(document.getElementById("percentNumber").value);
+    const percent = Number(document.getElementById("percentValue").value);
+
+    if (!Number.isFinite(number) || !Number.isFinite(percent)) {
+      showResult("percentResult", "Введите оба числа.");
+      return;
+    }
+
+    const result = number * percent / 100;
+
+    showResult(
+      "percentResult",
+      `${percent}% от ${number} = <strong>${formatNumber(result)}</strong>`
+    );
+  }
+
+
+  function calculateDiscount() {
+    const price = Number(document.getElementById("price").value);
+    const discount = Number(document.getElementById("discount").value);
+
+    if (!Number.isFinite(price) || !Number.isFinite(discount)) {
+      showResult("discountResult", "Введите цену и процент скидки.");
+      return;
+    }
+
+    const saving = price * discount / 100;
+    const finalPrice = price - saving;
+
+    showResult(
+      "discountResult",
+      `
+        Скидка: <strong>${formatNumber(saving)}</strong><br><br>
+        Итоговая цена: <strong>${formatNumber(finalPrice)}</strong>
+      `
+    );
+  }
+
+
+  function calculateAge() {
+    const birth = document.getElementById("birthDate").value;
+
+    if (!birth) {
+      showResult("ageResult", "Выберите дату рождения.");
+      return;
+    }
+
+    const birthDate = new Date(birth + "T00:00:00");
+    const now = new Date();
+
+    let years = now.getFullYear() - birthDate.getFullYear();
+    let months = now.getMonth() - birthDate.getMonth();
+
+    if (
+      months < 0 ||
+      (months === 0 && now.getDate() < birthDate.getDate())
+    ) {
+      years--;
+    }
+
+    const passedBirthday = (
+      now.getMonth() > birthDate.getMonth() ||
+      (
+        now.getMonth() === birthDate.getMonth() &&
+        now.getDate() >= birthDate.getDate()
+      )
+    );
+
+    if (!passedBirthday) {
+      months = months < 0 ? months + 12 : months;
+    }
+
+    showResult(
+      "ageResult",
+      `Ваш возраст: <strong>${years} лет</strong>`
+    );
+  }
+
+
+  function generatePassword() {
+    let length = Number(document.getElementById("passwordLength").value);
+
+    if (!Number.isInteger(length) || length < 4) {
+      length = 16;
+    }
+
+    if (length > 64) {
+      length = 64;
+    }
+
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+      password += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    document.getElementById("passwordResult").value = password;
+  }
+
+
+  function generateNickname() {
+    const a = [
+      "Dark",
+      "Crazy",
+      "Silent",
+      "Lucky",
+      "Ghost",
+      "Cyber",
+      "Ultra",
+      "Frost",
+      "Pixel",
+      "Shadow",
+      "Rapid",
+      "Neon"
+    ];
+
+    const b = [
+      "Fox",
+      "Wolf",
+      "Dragon",
+      "Player",
+      "Ninja",
+      "Storm",
+      "Hunter",
+      "Master",
+      "Core",
+      "Fire",
+      "Blade",
+      "Zero"
+    ];
+
+    const first = a[Math.floor(Math.random() * a.length)];
+    const second = b[Math.floor(Math.random() * b.length)];
+    const number = Math.floor(Math.random() * 9999);
+
+    document.getElementById("nicknameResult").value =
+      first + second + number;
+  }
+
+
+  function generateRandom() {
+    let min = Number(document.getElementById("randomMin").value);
+    let max = Number(document.getElementById("randomMax").value);
+
+    if (!Number.isFinite(min) || !Number.isFinite(max)) {
+      showResult("randomResult", "Введите диапазон.");
+      return;
+    }
+
+    if (min > max) {
+      [min, max] = [max, min];
+    }
+
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    const result = Math.floor(
+      Math.random() * (max - min + 1)
+    ) + min;
+
+    showResult(
+      "randomResult",
+      `Случайное число: <strong>${result}</strong>`
+    );
+  }
+
+
+  function copyText(id) {
+    const element = document.getElementById(id);
+    const value = element.value;
+
+    if (!value) return;
+
+    navigator.clipboard.writeText(value)
+      .then(() => {
+        alert("Скопировано!");
+      })
+      .catch(() => {
+        element.select();
+        document.execCommand("copy");
+        alert("Скопировано!");
+      });
+  }
+
+
+  function showResult(id, html) {
+    const element = document.getElementById(id);
+    element.innerHTML = html;
+    element.classList.remove("hidden");
+  }
+
+
+  function formatNumber(number) {
+    return Number(number.toFixed(2)).toLocaleString("ru-RU");
+  }
+
+
+  function generateImageQR() {
+    const input = document.getElementById("imageInput");
+    const container = document.getElementById("imageQr");
+    const info = document.getElementById("imageQrInfo");
+
+    container.innerHTML = "";
+    info.textContent = "";
+
+    if (!input.files || !input.files[0]) {
+      info.textContent = "Сначала выбери изображение.";
+      return;
+    }
+
+    const file = input.files[0];
+
+    /*
+      Важно:
+      QR имеет очень ограниченную ёмкость.
+      Поэтому большие изображения внутрь QR не помещаются.
+      Мы сначала уменьшаем изображение.
+    */
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      const image = new Image();
+
+      image.onload = function() {
+        const canvas = document.createElement("canvas");
+
+        const maxSize = 180;
+
+        let width = image.width;
+        let height = image.height;
+
+        if (width > height) {
+          if (width > maxSize) {
+            height = Math.round(height * maxSize / width);
+            width = maxSize;
+          }
+        } else {
+          if (height > maxSize) {
+            width = Math.round(width * maxSize / height);
+            height = maxSize;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, width, height);
+
+        const data = canvas.toDataURL("image/jpeg", 0.25);
+
+        /*
+          Если картинка всё ещё слишком большая для QR,
+          предупреждаем пользователя.
+        */
+
+        if (data.length > 2500) {
+          info.textContent =
+            "Изображение слишком большое для стандартного QR. Попробуй более маленькую картинку.";
+          return;
+        }
+
+        try {
+          new QRCode(container, {
+            text: data,
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.L
+          });
+
+          info.textContent =
+            "Готово. Для больших изображений лучше использовать ссылку на изображение.";
+        } catch (error) {
+          info.textContent =
+            "Не получилось создать QR. Попробуй более маленькое изображение.";
+        }
+      };
+
+      image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+
+  document.getElementById("imageInput").addEventListener("change", function() {
+    const file = this.files[0];
+    const preview = document.getElementById("imagePreview");
+
+    if (!file) {
+      preview.style.display = "none";
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+
+    preview.src = url;
+    preview.style.display = "block";
+  });
+
+</script>
+
+</body>
+  </html>
