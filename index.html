@@ -1305,6 +1305,1097 @@ function jwt(){
   }
 }
 </script>
+<!-- =========================
+     TOOLIX EXTRA TOOLS
+     ========================= -->
 
+<section class="section" id="extra-tools">
+  <h2 class="section-title">🚀 Ещё инструменты</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">🖼️</div>
+      <h3>Конвертер изображений</h3>
+      <p>PNG, JPG, WebP прямо в браузере.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📉</div>
+      <h3>Сжатие изображения</h3>
+      <p>Уменьши размер фото.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📐</div>
+      <h3>Размер изображения</h3>
+      <p>Измени ширину и высоту.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔤</div>
+      <h3>Счётчик текста</h3>
+      <p>Слова, символы и строки.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧹</div>
+      <h3>Очистка текста</h3>
+      <p>Убрать лишние пробелы и пустые строки.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔀</div>
+      <h3>Удаление дублей</h3>
+      <p>Удалить одинаковые строки.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔠</div>
+      <h3>Регистр текста</h3>
+      <p>UPPERCASE, lowercase и Title Case.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">↕️</div>
+      <h3>Сортировка строк</h3>
+      <p>Отсортировать текст по строкам.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">#</div>
+      <h3>Slug Generator</h3>
+      <p>Превратить заголовок в URL.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🕐</div>
+      <h3>Unix Timestamp</h3>
+      <p>Дата ↔ Unix-время.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📦</div>
+      <h3>Размер файла</h3>
+      <p>Узнать размер любого файла.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📄</div>
+      <h3>CSV → JSON</h3>
+      <p>Превратить таблицу в JSON.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">{ }</div>
+      <h3>JSON → CSV</h3>
+      <p>Превратить массив JSON в CSV.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔗</div>
+      <h3>Data URL</h3>
+      <p>Создать Data URI из файла.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎨</div>
+      <h3>Градиент</h3>
+      <p>Создать CSS linear-gradient.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- IMAGE TOOLS -->
+
+<section class="tool" id="image-converter-tool">
+  <div class="box">
+
+    <h2>🖼️ Конвертер изображений</h2>
+
+    <p class="desc">
+      PNG, JPG или WebP. Всё происходит локально в браузере.
+    </p>
+
+    <input
+      id="imageConvertFile"
+      class="input"
+      type="file"
+      accept="image/*"
+    >
+
+    <select id="imageConvertFormat" class="input">
+      <option value="image/png">PNG</option>
+      <option value="image/jpeg">JPG</option>
+      <option value="image/webp">WebP</option>
+    </select>
+
+    <button class="btn primary" onclick="convertImageTool()">
+      Конвертировать
+    </button>
+
+    <div id="imageConvertResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="image-compress-tool">
+  <div class="box">
+
+    <h2>📉 Сжатие изображения</h2>
+
+    <p class="desc">
+      Уменьшает размер фотографии с помощью качества JPEG/WebP.
+    </p>
+
+    <input
+      id="compressFile"
+      class="input"
+      type="file"
+      accept="image/*"
+    >
+
+    <label>
+      Качество:
+      <span id="qualityValue">70</span>%
+    </label>
+
+    <input
+      id="compressQuality"
+      type="range"
+      min="10"
+      max="100"
+      value="70"
+      style="width:100%;margin:15px 0"
+      oninput="document.getElementById('qualityValue').textContent=this.value"
+    >
+
+    <button class="btn primary" onclick="compressImageTool()">
+      Сжать
+    </button>
+
+    <div id="compressResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="resize-image-tool">
+  <div class="box">
+
+    <h2>📐 Изменение размера изображения</h2>
+
+    <input
+      id="resizeFile"
+      class="input"
+      type="file"
+      accept="image/*"
+    >
+
+    <div class="row">
+
+      <input
+        id="resizeWidth"
+        class="input"
+        type="number"
+        placeholder="Ширина"
+      >
+
+      <input
+        id="resizeHeight"
+        class="input"
+        type="number"
+        placeholder="Высота"
+      >
+
+    </div>
+
+    <button class="btn primary" onclick="resizeImageTool()">
+      Изменить размер
+    </button>
+
+    <div id="resizeResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<!-- TEXT TOOLS -->
+
+<section class="tool" id="text-counter-tool">
+  <div class="box">
+
+    <h2>🔤 Счётчик текста</h2>
+
+    <textarea
+      id="counterText"
+      class="input"
+      placeholder="Введите текст..."
+      oninput="countTextTool()"
+    ></textarea>
+
+    <div id="counterResult" class="result">
+      Символов: 0<br>
+      Слов: 0<br>
+      Строк: 0
+    </div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="text-clean-tool">
+  <div class="box">
+
+    <h2>🧹 Очистка текста</h2>
+
+    <textarea
+      id="cleanTextInput"
+      class="input"
+      placeholder="Вставьте текст..."
+    ></textarea>
+
+    <button class="btn primary" onclick="cleanTextTool()">
+      Очистить
+    </button>
+
+    <div id="cleanTextResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="duplicates-tool">
+  <div class="box">
+
+    <h2>🔀 Удаление дублей</h2>
+
+    <textarea
+      id="duplicatesInput"
+      class="input"
+      placeholder="Каждое значение с новой строки..."
+    ></textarea>
+
+    <button class="btn primary" onclick="removeDuplicatesTool()">
+      Удалить дубли
+    </button>
+
+    <div id="duplicatesResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="case-tool">
+  <div class="box">
+
+    <h2>🔠 Изменить регистр</h2>
+
+    <textarea
+      id="caseInput"
+      class="input"
+      placeholder="Введите текст..."
+    ></textarea>
+
+    <div class="buttons">
+
+      <button class="btn primary" onclick="caseUpper()">
+        UPPERCASE
+      </button>
+
+      <button class="btn secondary" onclick="caseLower()">
+        lowercase
+      </button>
+
+      <button class="btn secondary" onclick="caseTitle()">
+        Title Case
+      </button>
+
+    </div>
+
+    <div id="caseResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="sort-lines-tool">
+  <div class="box">
+
+    <h2>↕️ Сортировка строк</h2>
+
+    <textarea
+      id="sortLinesInput"
+      class="input"
+      placeholder="яблоко&#10;арбуз&#10;банан"
+    ></textarea>
+
+    <div class="buttons">
+
+      <button class="btn primary" onclick="sortLinesAsc()">
+        А → Я
+      </button>
+
+      <button class="btn secondary" onclick="sortLinesDesc()">
+        Я → А
+      </button>
+
+    </div>
+
+    <div id="sortLinesResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="slug-tool">
+  <div class="box">
+
+    <h2># Slug Generator</h2>
+
+    <input
+      id="slugInput"
+      class="input"
+      placeholder="Мой новый крутой сайт"
+    >
+
+    <button class="btn primary" onclick="makeSlug()">
+      Создать slug
+    </button>
+
+    <div id="slugResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<!-- DATE / FILE TOOLS -->
+
+<section class="tool" id="timestamp-tool">
+  <div class="box">
+
+    <h2>🕐 Unix Timestamp</h2>
+
+    <div class="buttons">
+
+      <button class="btn primary" onclick="timestampNow()">
+        Сейчас → Timestamp
+      </button>
+
+    </div>
+
+    <input
+      id="timestampInput"
+      class="input"
+      type="number"
+      placeholder="Например: 1756069200"
+    >
+
+    <button class="btn secondary" onclick="timestampDate()">
+      Timestamp → дата
+    </button>
+
+    <div id="timestampResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="file-size-tool">
+  <div class="box">
+
+    <h2>📦 Размер файла</h2>
+
+    <input
+      id="fileSizeInput"
+      class="input"
+      type="file"
+      onchange="showFileSizeTool()"
+    >
+
+    <div id="fileSizeResult" class="result"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="data-url-tool">
+  <div class="box">
+
+    <h2>🔗 Data URL Generator</h2>
+
+    <input
+      id="dataUrlFile"
+      class="input"
+      type="file"
+    >
+
+    <button class="btn primary" onclick="makeDataURL()">
+      Создать Data URL
+    </button>
+
+    <div id="dataUrlResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<!-- CSV / JSON -->
+
+<section class="tool" id="csv-json-tool">
+  <div class="box">
+
+    <h2>📄 CSV → JSON</h2>
+
+    <textarea
+      id="csvInput"
+      class="input"
+      placeholder="name,age&#10;Alex,16&#10;Ivan,20"
+    ></textarea>
+
+    <button class="btn primary" onclick="csvToJsonTool()">
+      Конвертировать
+    </button>
+
+    <div id="csvResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<section class="tool" id="json-csv-tool">
+  <div class="box">
+
+    <h2>{ } JSON → CSV</h2>
+
+    <textarea
+      id="jsonCsvInput"
+      class="input"
+      placeholder='[{"name":"Alex","age":16},{"name":"Ivan","age":20}]'
+    ></textarea>
+
+    <button class="btn primary" onclick="jsonToCsvTool()">
+      Конвертировать
+    </button>
+
+    <div id="jsonCsvResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<!-- CSS GRADIENT -->
+
+<section class="tool" id="gradient-tool">
+  <div class="box">
+
+    <h2>🎨 CSS Gradient Generator</h2>
+
+    <div class="row">
+
+      <input
+        id="gradientColor1"
+        class="input"
+        type="color"
+        value="#7567ff"
+      >
+
+      <input
+        id="gradientColor2"
+        class="input"
+        type="color"
+        value="#ff6175"
+      >
+
+    </div>
+
+    <input
+      id="gradientAngle"
+      class="input"
+      type="number"
+      value="135"
+      placeholder="Угол"
+    >
+
+    <button class="btn primary" onclick="makeGradient()">
+      Создать
+    </button>
+
+    <div
+      id="gradientPreview"
+      style="
+        height:180px;
+        border-radius:18px;
+        margin-top:15px;
+        border:1px solid var(--border);
+      "
+    ></div>
+
+    <div id="gradientResult" class="result mono"></div>
+
+  </div>
+</section>
+
+
+<script>
+
+function convertImageTool(){
+
+  const file=document.getElementById("imageConvertFile").files[0];
+  const format=document.getElementById("imageConvertFormat").value;
+
+  if(!file){
+
+    document.getElementById("imageConvertResult").innerHTML=
+      '<span class="err">Выберите изображение.</span>';
+
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    const img=new Image();
+
+    img.onload=function(){
+
+      const canvas=document.createElement("canvas");
+
+      canvas.width=img.width;
+      canvas.height=img.height;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.drawImage(img,0,0);
+
+      canvas.toBlob(function(blob){
+
+        const url=URL.createObjectURL(blob);
+
+        document.getElementById("imageConvertResult").innerHTML=`
+          <p class="good">Готово!</p>
+          <p style="margin:10px 0">
+            Размер: ${formatBytes(blob.size)}
+          </p>
+          <a
+            class="btn primary"
+            href="${url}"
+            download="toolix-converted.${formatExtension(format)}"
+          >
+            Скачать
+          </a>
+        `;
+
+      },format,.92);
+
+    };
+
+    img.src=e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function formatExtension(type){
+
+  if(type==="image/jpeg") return "jpg";
+  if(type==="image/webp") return "webp";
+  return "png";
+
+}
+
+
+function compressImageTool(){
+
+  const file=document.getElementById("compressFile").files[0];
+  const quality=Number(
+    document.getElementById("compressQuality").value
+  )/100;
+
+  if(!file){
+
+    document.getElementById("compressResult").innerHTML=
+      '<span class="err">Выберите изображение.</span>';
+
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    const img=new Image();
+
+    img.onload=function(){
+
+      const canvas=document.createElement("canvas");
+
+      canvas.width=img.width;
+      canvas.height=img.height;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.drawImage(img,0,0);
+
+      canvas.toBlob(function(blob){
+
+        const url=URL.createObjectURL(blob);
+
+        const oldSize=formatBytes(file.size);
+        const newSize=formatBytes(blob.size);
+
+        document.getElementById("compressResult").innerHTML=`
+          Было: <b>${oldSize}</b><br>
+          Стало: <b>${newSize}</b><br><br>
+
+          <a
+            class="btn primary"
+            href="${url}"
+            download="toolix-compressed.jpg"
+          >
+            Скачать
+          </a>
+        `;
+
+      },"image/jpeg",quality);
+
+    };
+
+    img.src=e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function resizeImageTool(){
+
+  const file=document.getElementById("resizeFile").files[0];
+
+  const width=Number(
+    document.getElementById("resizeWidth").value
+  );
+
+  const height=Number(
+    document.getElementById("resizeHeight").value
+  );
+
+  if(!file||!width||!height){
+
+    document.getElementById("resizeResult").innerHTML=
+      '<span class="err">Выберите файл и укажите размеры.</span>';
+
+    return;
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    const img=new Image();
+
+    img.onload=function(){
+
+      const canvas=document.createElement("canvas");
+
+      canvas.width=width;
+      canvas.height=height;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.drawImage(img,0,0,width,height);
+
+      canvas.toBlob(function(blob){
+
+        const url=URL.createObjectURL(blob);
+
+        document.getElementById("resizeResult").innerHTML=`
+          <p class="good">Готово: ${width} × ${height}</p><br>
+
+          <a
+            class="btn primary"
+            href="${url}"
+            download="toolix-resized.jpg"
+          >
+            Скачать
+          </a>
+        `;
+
+      },"image/jpeg",.92);
+
+    };
+
+    img.src=e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function formatBytes(bytes){
+
+  if(bytes===0) return "0 Б";
+
+  const units=[
+    "Б",
+    "КБ",
+    "МБ",
+    "ГБ"
+  ];
+
+  const index=Math.floor(
+    Math.log(bytes)/Math.log(1024)
+  );
+
+  return (
+    bytes/Math.pow(1024,index)
+  ).toFixed(2)+" "+units[index];
+
+}
+
+
+function countTextTool(){
+
+  const text=document.getElementById("counterText").value;
+
+  const chars=text.length;
+
+  const words=text.trim()
+    ? text.trim().split(/\s+/).length
+    : 0;
+
+  const lines=text
+    ? text.split("\n").length
+    : 0;
+
+  document.getElementById("counterResult").innerHTML=`
+    Символов: <b>${chars}</b><br>
+    Слов: <b>${words}</b><br>
+    Строк: <b>${lines}</b>
+  `;
+
+}
+
+
+function cleanTextTool(){
+
+  const value=document.getElementById("cleanTextInput").value;
+
+  const result=value
+    .split("\n")
+    .map(x=>x.replace(/\s+/g," ").trim())
+    .filter(Boolean)
+    .join("\n");
+
+  document.getElementById("cleanTextResult").innerHTML=
+    `<pre class="mono">${esc(result)}</pre>`;
+
+}
+
+
+function removeDuplicatesTool(){
+
+  const value=document.getElementById("duplicatesInput").value;
+
+  const result=[
+    ...new Set(
+      value
+        .split("\n")
+        .map(x=>x.trim())
+        .filter(Boolean)
+    )
+  ].join("\n");
+
+  document.getElementById("duplicatesResult").innerHTML=
+    `<pre class="mono">${esc(result)}</pre>`;
+
+}
+
+
+function caseUpper(){
+
+  document.getElementById("caseResult").textContent=
+    document.getElementById("caseInput").value.toUpperCase();
+
+}
+
+
+function caseLower(){
+
+  document.getElementById("caseResult").textContent=
+    document.getElementById("caseInput").value.toLowerCase();
+
+}
+
+
+function caseTitle(){
+
+  const text=document.getElementById("caseInput").value;
+
+  const result=text
+    .toLowerCase()
+    .replace(
+      /(^|\s)\S/g,
+      c=>c.toUpperCase()
+    );
+
+  document.getElementById("caseResult").textContent=result;
+
+}
+
+
+function sortLinesAsc(){
+
+  const lines=document.getElementById("sortLinesInput")
+    .value
+    .split("\n")
+    .filter(Boolean)
+    .sort(
+      (a,b)=>a.localeCompare(b,"ru")
+    );
+
+  document.getElementById("sortLinesResult").textContent=
+    lines.join("\n");
+
+}
+
+
+function sortLinesDesc(){
+
+  const lines=document.getElementById("sortLinesInput")
+    .value
+    .split("\n")
+    .filter(Boolean)
+    .sort(
+      (a,b)=>b.localeCompare(a,"ru")
+    );
+
+  document.getElementById("sortLinesResult").textContent=
+    lines.join("\n");
+
+}
+
+
+function makeSlug(){
+
+  const value=document.getElementById("slugInput").value;
+
+  const result=value
+    .toLowerCase()
+    .trim()
+    .replace(/[^\wа-яё\s-]/gi,"")
+    .replace(/\s+/g,"-")
+    .replace(/-+/g,"-");
+
+  document.getElementById("slugResult").textContent=result;
+
+}
+
+
+function timestampNow(){
+
+  const value=Math.floor(
+    Date.now()/1000
+  );
+
+  document.getElementById("timestampResult").innerHTML=
+    `<b>${value}</b>`;
+
+}
+
+
+function timestampDate(){
+
+  const value=Number(
+    document.getElementById("timestampInput").value
+  );
+
+  if(!Number.isFinite(value)){
+
+    document.getElementById("timestampResult").innerHTML=
+      '<span class="err">Введите timestamp.</span>';
+
+    return;
+
+  }
+
+  const date=new Date(value*1000);
+
+  document.getElementById("timestampResult").innerHTML=
+    `<b>${date.toLocaleString("ru-RU")}</b>`;
+
+}
+
+
+function showFileSizeTool(){
+
+  const file=document.getElementById("fileSizeInput").files[0];
+
+  if(!file){
+
+    document.getElementById("fileSizeResult").textContent="";
+
+    return;
+
+  }
+
+  document.getElementById("fileSizeResult").innerHTML=`
+    <b>${file.name}</b><br><br>
+    Размер: <b>${formatBytes(file.size)}</b><br>
+    Тип: <b>${file.type||"неизвестен"}</b>
+  `;
+
+}
+
+
+function makeDataURL(){
+
+  const file=document.getElementById("dataUrlFile").files[0];
+
+  if(!file){
+
+    document.getElementById("dataUrlResult").innerHTML=
+      '<span class="err">Выберите файл.</span>';
+
+    return;
+
+  }
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+
+    document.getElementById("dataUrlResult").textContent=
+      reader.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+function csvToJsonTool(){
+
+  const text=document.getElementById("csvInput").value.trim();
+
+  if(!text){
+
+    document.getElementById("csvResult").innerHTML=
+      '<span class="err">Введите CSV.</span>';
+
+    return;
+
+  }
+
+  const lines=text.split(/\r?\n/);
+
+  const headers=lines[0]
+    .split(",")
+    .map(x=>x.trim());
+
+  const rows=lines.slice(1);
+
+  const data=rows.map(line=>{
+
+    const values=line.split(",");
+
+    const obj={};
+
+    headers.forEach((header,index)=>{
+
+      obj[header]=
+        (values[index]||"").trim();
+
+    });
+
+    return obj;
+
+  });
+
+  document.getElementById("csvResult").textContent=
+    JSON.stringify(data,null,2);
+
+}
+
+
+function jsonToCsvTool(){
+
+  try{
+
+    const data=JSON.parse(
+      document.getElementById("jsonCsvInput").value
+    );
+
+    if(!Array.isArray(data)||!data.length){
+
+      throw new Error();
+
+    }
+
+    const headers=[
+      ...new Set(
+        data.flatMap(
+          obj=>Object.keys(obj)
+        )
+      )
+    ];
+
+    const rows=data.map(obj=>
+      headers.map(header=>
+        `"${String(
+          obj[header]??""
+        ).replaceAll('"','""')}"`
+      ).join(",")
+    );
+
+    const csv=[
+      headers.join(","),
+      ...rows
+    ].join("\n");
+
+    document.getElementById("jsonCsvResult").textContent=csv;
+
+  }catch(e){
+
+    document.getElementById("jsonCsvResult").innerHTML=
+      '<span class="err">Нужен JSON-массив объектов.</span>';
+
+  }
+
+}
+
+
+function makeGradient(){
+
+  const c1=document.getElementById("gradientColor1").value;
+
+  const c2=document.getElementById("gradientColor2").value;
+
+  const angle=document.getElementById("gradientAngle").value;
+
+  const value=
+    `linear-gradient(${angle}deg, ${c1}, ${c2})`;
+
+  document.getElementById("gradientPreview").style.background=
+    value;
+
+  document.getElementById("gradientResult").textContent=
+    `background: ${value};`;
+
+}
+
+        </script>
 </body>
   </html>
