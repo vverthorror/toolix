@@ -1,335 +1,331 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Toolix — бесплатные онлайн-инструменты: QR-коды, калькуляторы, генераторы и инструменты для изображений.">
-  <title>Toolix — бесплатные инструменты онлайн</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Toolix — бесплатные онлайн-инструменты для текста, изображений, QR, PDF, расчётов и разработчиков.">
+<meta name="theme-color" content="#0b0d12">
+<title>Toolix — онлайн-инструменты</title>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090b10;
+  --panel:#11141c;
+  --panel2:#171b25;
+  --border:#272d3b;
+  --text:#f5f7fb;
+  --muted:#8f98a9;
+  --accent:#7567ff;
+  --accent2:#5b4deb;
+  --good:#35d07f;
+  --bad:#ff6175;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 
-    :root {
-      --bg: #0b0d12;
-      --card: #131722;
-      --card2: #191e2a;
-      --text: #f5f7fb;
-      --muted: #929aaa;
-      --border: #272d3a;
-      --accent: #6c63ff;
-      --accent2: #5148e8;
-      --green: #35d07f;
-      --danger: #ff5c70;
-    }
+.container{
+  width:min(1180px,calc(100% - 24px));
+  margin:auto;
+}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(9,11,16,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+.nav{
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
 
-    .container {
-      width: min(1150px, calc(100% - 30px));
-      margin: 0 auto;
-    }
+.logo{
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(14px);
-      background: rgba(11, 13, 18, 0.86);
-      border-bottom: 1px solid var(--border);
-    }
+.logo span{color:var(--accent)}
 
-    .nav {
-      min-height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
+.nav small{
+  color:var(--muted);
+}
 
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
+.hero{
+  padding:62px 0 30px;
+  text-align:center;
+}
 
-    .logo span {
-      color: var(--accent);
-    }
+.badge{
+  display:inline-block;
+  padding:8px 13px;
+  border:1px solid #36316f;
+  background:#17152f;
+  color:#aaa4ff;
+  border-radius:999px;
+  font-size:13px;
+  margin-bottom:18px;
+}
 
-    .hero {
-      padding: 70px 0 45px;
-      text-align: center;
-    }
+h1{
+  font-size:clamp(42px,9vw,78px);
+  line-height:.95;
+  letter-spacing:-4px;
+  margin-bottom:20px;
+}
 
-    .badge {
-      display: inline-block;
-      background: rgba(108, 99, 255, 0.12);
-      border: 1px solid rgba(108, 99, 255, 0.28);
-      color: #b6b2ff;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
+.hero p{
+  max-width:720px;
+  margin:auto;
+  color:var(--muted);
+  line-height:1.6;
+  font-size:17px;
+}
 
-    h1 {
-      font-size: clamp(38px, 8vw, 70px);
-      line-height: 1;
-      margin-bottom: 18px;
-      letter-spacing: -2px;
-    }
+.search{
+  max-width:720px;
+  width:100%;
+  margin:28px auto 0;
+  display:block;
+  padding:16px 18px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  outline:none;
+  background:var(--panel);
+  color:var(--text);
+}
 
-    .hero p {
-      color: var(--muted);
-      max-width: 670px;
-      margin: 0 auto;
-      font-size: 17px;
-      line-height: 1.6;
-    }
+.search:focus{
+  border-color:var(--accent);
+}
 
-    .search-wrap {
-      max-width: 700px;
-      margin: 30px auto 0;
-    }
+.ad{
+  min-height:92px;
+  border:1px dashed #333949;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  color:#687183;
+  margin:24px 0;
+  text-align:center;
+  padding:15px;
+}
 
-    .search {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--text);
-      padding: 16px 18px;
-      font-size: 16px;
-      border-radius: 14px;
-      outline: none;
-    }
+.section{
+  padding:25px 0;
+}
 
-    .search:focus {
-      border-color: var(--accent);
-    }
+.section-title{
+  font-size:28px;
+  margin-bottom:16px;
+}
 
-    section {
-      padding: 20px 0 50px;
-    }
+.category{
+  margin-top:34px;
+}
 
-    .section-title {
-      margin-bottom: 18px;
-      font-size: 25px;
-    }
+.category-title{
+  font-size:20px;
+  margin-bottom:14px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 19px;
-      transition: 0.2s ease;
-      cursor: pointer;
-    }
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:17px;
+  transition:.18s;
+  cursor:pointer;
+}
 
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: #3a4152;
-      background: var(--card2);
-    }
+.card:hover{
+  transform:translateY(-2px);
+  border-color:#3a4254;
+  background:var(--panel2);
+}
 
-    .icon {
-      width: 45px;
-      height: 45px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: rgba(108, 99, 255, 0.13);
-      margin-bottom: 15px;
-      font-size: 21px;
-    }
+.icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:#1b1938;
+  margin-bottom:13px;
+  font-size:20px;
+}
 
-    .card h3 {
-      font-size: 17px;
-      margin-bottom: 7px;
-    }
+.card h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
 
-    .card p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.45;
-    }
+.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
 
-    .tool-section {
-      scroll-margin-top: 90px;
-    }
+.tool{
+  scroll-margin-top:88px;
+  margin-top:28px;
+}
 
-    .tool-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 22px;
-      margin-bottom: 20px;
-    }
+.box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+}
 
-    .tool-box h2 {
-      margin-bottom: 8px;
-    }
+.box h2{
+  font-size:22px;
+  margin-bottom:7px;
+}
 
-    .tool-description {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
+.desc{
+  color:var(--muted);
+  margin-bottom:17px;
+  line-height:1.5;
+}
 
-    .input {
-      width: 100%;
-      background: #0d1016;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 13px 14px;
-      border-radius: 11px;
-      outline: none;
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
+.input{
+  width:100%;
+  padding:13px 14px;
+  border-radius:12px;
+  background:#0c0f15;
+  border:1px solid var(--border);
+  color:var(--text);
+  outline:none;
+  margin-bottom:12px;
+}
 
-    textarea.input {
-      resize: vertical;
-      min-height: 110px;
-    }
+.input:focus{
+  border-color:var(--accent);
+}
 
-    .input:focus {
-      border-color: var(--accent);
-    }
+textarea.input{
+  min-height:130px;
+  resize:vertical;
+}
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
 
-    button {
-      border: none;
-      cursor: pointer;
-      border-radius: 11px;
-      padding: 12px 16px;
-      font-weight: 700;
-      font-size: 14px;
-    }
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
 
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-    }
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:12px 16px;
+  font-weight:700;
+}
 
-    .btn-primary:hover {
-      background: var(--accent2);
-    }
+.primary{
+  background:var(--accent);
+  color:#fff;
+}
 
-    .btn-secondary {
-      background: #202632;
-      color: var(--text);
-    }
+.primary:hover{
+  background:var(--accent2);
+}
 
-    .result {
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 14px;
-      background: #0d1016;
-      border: 1px solid var(--border);
-    }
+.secondary{
+  background:#222734;
+  color:#fff;
+}
 
-    #qrcode,
-    #imageQr {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 20px;
-      margin: 10px 0;
-    }
+.result{
+  margin-top:16px;
+  background:#0b0e14;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:17px;
+  min-height:48px;
+  overflow-wrap:anywhere;
+}
 
-    .preview {
-      max-width: 100%;
-      max-height: 320px;
-      border-radius: 12px;
-      margin-top: 12px;
-      display: none;
-    }
+.hidden{display:none!important}
+.good{color:var(--good)}
+.err{color:var(--bad)}
 
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
+.mono{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  white-space:pre-wrap;
+  overflow:auto;
+}
 
-    .hidden {
-      display: none !important;
-    }
+#qr,#qrWifi,#qrPhone,#qrEmail,#qrContact{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:10px;
+  margin-top:10px;
+}
 
-    .ad-placeholder {
-      min-height: 100px;
-      border: 1px dashed #343b4a;
-      color: #666f81;
-      display: grid;
-      place-items: center;
-      border-radius: 15px;
-      margin: 25px 0;
-      text-align: center;
-      padding: 15px;
-    }
+.preview{
+  max-width:100%;
+  max-height:320px;
+  display:none;
+  border-radius:12px;
+  margin:10px 0;
+}
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 0 40px;
-      margin-top: 20px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
-    }
+footer{
+  margin-top:35px;
+  border-top:1px solid var(--border);
+  padding:28px 0 45px;
+  color:var(--muted);
+  text-align:center;
+  font-size:13px;
+}
 
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+@media(max-width:950px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
 
-    @media (max-width: 600px) {
-      .container {
-        width: min(100% - 20px, 1150px);
-      }
+@media(max-width:700px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:1fr}
+  .hero{padding-top:42px}
+}
 
-      .hero {
-        padding-top: 45px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .calc-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .tool-box {
-        padding: 16px;
-      }
-    }
-  </style>
+@media(max-width:470px){
+  .grid{grid-template-columns:1fr}
+  .container{width:min(100% - 16px,1180px)}
+  .box{padding:16px}
+}
+</style>
 </head>
 
 <body>
@@ -337,642 +333,977 @@
 <header>
   <div class="container nav">
     <div class="logo">Tool<span>ix</span></div>
-    <div style="color:var(--muted);font-size:13px;">Бесплатные инструменты</div>
+    <small>Бесплатные онлайн-инструменты</small>
   </div>
 </header>
 
-<main>
+<main class="container">
 
-  <div class="container">
+<section class="hero">
+  <div class="badge">⚡ Всё работает прямо в браузере</div>
+  <h1>Tool<span style="color:var(--accent)">ix</span></h1>
+  <p>
+    Огромный набор бесплатных инструментов для QR, текста,
+    изображений, PDF, расчётов, генерации и разработки.
+  </p>
 
-    <section class="hero">
-      <div class="badge">⚡ Всё прямо в браузере</div>
-      <h1>Tool<span style="color:var(--accent)">ix</span></h1>
-      <p>
-        Бесплатные онлайн-инструменты для QR-кодов, ссылок, изображений,
-        расчётов и генерации полезных вещей.
-      </p>
+  <input
+    id="search"
+    class="search"
+    placeholder="🔎 Найти инструмент..."
+    oninput="searchTools()"
+  >
+</section>
 
-      <div class="search-wrap">
-        <input
-          id="search"
-          class="search"
-          type="text"
-          placeholder="🔎 Найти инструмент..."
-          oninput="searchTools()"
-        >
+<div class="ad">
+  Здесь позже можно разместить рекламный блок
+</div>
+
+<section class="section">
+  <h2 class="section-title">🧰 Все инструменты</h2>
+
+  <div class="category">
+    <h3 class="category-title">▦ QR-коды</h3>
+
+    <div class="grid">
+
+      <div class="card" data-name="qr ссылка url текст" onclick="go('qr-tool')">
+        <div class="icon">▦</div>
+        <h3>QR из текста</h3>
+        <p>Ссылка или любой текст → QR-код.</p>
       </div>
-    </section>
 
-    <div class="ad-placeholder">
-      Здесь позже можно разместить рекламный блок
+      <div class="card" data-name="wifi qr вай фай" onclick="go('wifi-tool')">
+        <div class="icon">📶</div>
+        <h3>Wi-Fi → QR</h3>
+        <p>Поделись Wi-Fi без ручного ввода пароля.</p>
+      </div>
+
+      <div class="card" data-name="телефон qr номер" onclick="go('phone-tool')">
+        <div class="icon">📱</div>
+        <h3>Телефон → QR</h3>
+        <p>QR-код для быстрого звонка.</p>
+      </div>
+
+      <div class="card" data-name="email qr почта" onclick="go('email-tool')">
+        <div class="icon">✉️</div>
+        <h3>Email → QR</h3>
+        <p>QR-код для отправки письма.</p>
+      </div>
+
+      <div class="card" data-name="контакт qr vcard" onclick="go('contact-tool')">
+        <div class="icon">👤</div>
+        <h3>Контакт → QR</h3>
+        <p>Создай QR с контактными данными.</p>
+      </div>
+
     </div>
-
-    <section>
-      <h2 class="section-title">🧰 Инструменты</h2>
-
-      <div class="grid" id="toolsGrid">
-
-        <div class="card" data-name="qr код ссылка текст" onclick="scrollToTool('qr-tool')">
-          <div class="icon">▦</div>
-          <h3>QR-код</h3>
-          <p>Создай QR из ссылки или любого текста.</p>
-        </div>
-
-        <div class="card" data-name="изображение фото qr код" onclick="scrollToTool('image-qr-tool')">
-          <div class="icon">🖼️</div>
-          <h3>Фото → QR</h3>
-          <p>Преврати небольшое изображение в QR-код.</p>
-        </div>
-
-        <div class="card" data-name="проценты калькулятор" onclick="scrollToTool('percent-tool')">
-          <div class="icon">%</div>
-          <h3>Проценты</h3>
-          <p>Быстрый расчёт процентов от числа.</p>
-        </div>
-
-        <div class="card" data-name="скидка калькулятор" onclick="scrollToTool('discount-tool')">
-          <div class="icon">🏷️</div>
-          <h3>Скидка</h3>
-          <p>Узнай цену после скидки.</p>
-        </div>
-
-        <div class="card" data-name="возраст калькулятор" onclick="scrollToTool('age-tool')">
-          <div class="icon">🎂</div>
-          <h3>Возраст</h3>
-          <p>Посчитай точный возраст по дате рождения.</p>
-        </div>
-
-        <div class="card" data-name="пароль генератор" onclick="scrollToTool('password-tool')">
-          <div class="icon">🔐</div>
-          <h3>Генератор паролей</h3>
-          <p>Создай случайный безопасный пароль.</p>
-        </div>
-
-        <div class="card" data-name="никнейм генератор" onclick="scrollToTool('nickname-tool')">
-          <div class="icon">🎮</div>
-          <h3>Генератор ников</h3>
-          <p>Случайные игровые никнеймы.</p>
-        </div>
-
-        <div class="card" data-name="случайное число генератор" onclick="scrollToTool('random-tool')">
-          <div class="icon">🎲</div>
-          <h3>Случайное число</h3>
-          <p>Выбери случайное число из диапазона.</p>
-        </div>
-
-      </div>
-    </section>
-
-
-    <section id="qr-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>▦ Генератор QR-кода</h2>
-        <p class="tool-description">
-          Введи ссылку или текст и получи QR-код.
-        </p>
-
-        <input
-          id="qrInput"
-          class="input"
-          placeholder="Например: https://example.com"
-        >
-
-        <div class="buttons">
-          <button class="btn-primary" onclick="generateQR()">Создать QR</button>
-          <button class="btn-secondary" onclick="clearQR()">Очистить</button>
-        </div>
-
-        <div class="result">
-          <div id="qrcode"></div>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="image-qr-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🖼️ Фото → QR-код</h2>
-        <p class="tool-description">
-          Выбери небольшое изображение. Оно будет преобразовано в данные,
-          которые можно поместить внутрь QR-кода.
-        </p>
-
-        <input id="imageInput" class="input" type="file" accept="image/*">
-
-        <img id="imagePreview" class="preview">
-
-        <div class="buttons">
-          <button class="btn-primary" onclick="generateImageQR()">
-            Создать QR
-          </button>
-        </div>
-
-        <div class="result">
-          <div id="imageQr"></div>
-          <p id="imageQrInfo" style="color:var(--muted);font-size:13px;text-align:center;"></p>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="percent-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>% Проценты</h2>
-        <p class="tool-description">
-          Сколько составляет X% от числа?
-        </p>
-
-        <div class="calc-grid">
-          <input id="percentNumber" class="input" type="number" placeholder="Число">
-          <input id="percentValue" class="input" type="number" placeholder="Процент">
-        </div>
-
-        <button class="btn-primary" onclick="calculatePercent()">Рассчитать</button>
-
-        <div id="percentResult" class="result hidden"></div>
-      </div>
-    </section>
-
-
-    <section id="discount-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🏷️ Калькулятор скидки</h2>
-        <p class="tool-description">
-          Узнай конечную цену товара.
-        </p>
-
-        <div class="calc-grid">
-          <input id="price" class="input" type="number" placeholder="Цена">
-          <input id="discount" class="input" type="number" placeholder="Скидка %">
-        </div>
-
-        <button class="btn-primary" onclick="calculateDiscount()">Рассчитать</button>
-
-        <div id="discountResult" class="result hidden"></div>
-      </div>
-    </section>
-
-
-    <section id="age-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🎂 Калькулятор возраста</h2>
-        <p class="tool-description">
-          Введи дату рождения.
-        </p>
-
-        <input id="birthDate" class="input" type="date">
-
-        <button class="btn-primary" onclick="calculateAge()">Рассчитать возраст</button>
-
-        <div id="ageResult" class="result hidden"></div>
-      </div>
-    </section>
-
-
-    <section id="password-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🔐 Генератор паролей</h2>
-        <p class="tool-description">
-          Выбери длину пароля.
-        </p>
-
-        <input
-          id="passwordLength"
-          class="input"
-          type="number"
-          min="4"
-          max="64"
-          value="16"
-          placeholder="Длина"
-        >
-
-        <button class="btn-primary" onclick="generatePassword()">Создать пароль</button>
-
-        <div class="result">
-          <input id="passwordResult" class="input" readonly>
-          <button class="btn-secondary" onclick="copyText('passwordResult')">
-            Копировать
-          </button>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="nickname-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🎮 Генератор ников</h2>
-        <p class="tool-description">
-          Создай случайный ник.
-        </p>
-
-        <button class="btn-primary" onclick="generateNickname()">Создать ник</button>
-
-        <div class="result">
-          <input id="nicknameResult" class="input" readonly>
-          <button class="btn-secondary" onclick="copyText('nicknameResult')">
-            Копировать
-          </button>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="random-tool" class="tool-section">
-      <div class="tool-box">
-        <h2>🎲 Случайное число</h2>
-        <p class="tool-description">
-          Получи случайное число из диапазона.
-        </p>
-
-        <div class="calc-grid">
-          <input id="randomMin" class="input" type="number" value="1" placeholder="От">
-          <input id="randomMax" class="input" type="number" value="100" placeholder="До">
-        </div>
-
-        <button class="btn-primary" onclick="generateRandom()">Получить число</button>
-
-        <div id="randomResult" class="result hidden"></div>
-      </div>
-    </section>
-
-    <div class="ad-placeholder">
-      Рекламное место №2
-    </div>
-
   </div>
+
+  <div class="category">
+    <h3 class="category-title">🧮 Калькуляторы</h3>
+
+    <div class="grid">
+
+      <div class="card" data-name="проценты" onclick="go('percent-tool')">
+        <div class="icon">%</div>
+        <h3>Проценты</h3>
+        <p>Посчитать процент от числа.</p>
+      </div>
+
+      <div class="card" data-name="скидка цена" onclick="go('discount-tool')">
+        <div class="icon">🏷️</div>
+        <h3>Скидка</h3>
+        <p>Цена после скидки.</p>
+      </div>
+
+      <div class="card" data-name="наценка" onclick="go('markup-tool')">
+        <div class="icon">📈</div>
+        <h3>Наценка</h3>
+        <p>Цена с заданной наценкой.</p>
+      </div>
+
+      <div class="card" data-name="ндс налог" onclick="go('vat-tool')">
+        <div class="icon">🧾</div>
+        <h3>НДС</h3>
+        <p>Добавить или выделить НДС.</p>
+      </div>
+
+      <div class="card" data-name="возраст" onclick="go('age-tool')">
+        <div class="icon">🎂</div>
+        <h3>Возраст</h3>
+        <p>Расчёт возраста по дате рождения.</p>
+      </div>
+
+      <div class="card" data-name="дни между датами дата" onclick="go('days-tool')">
+        <div class="icon">📅</div>
+        <h3>Дни между датами</h3>
+        <p>Разница между двумя датами.</p>
+      </div>
+
+      <div class="card" data-name="имт здоровье вес рост" onclick="go('bmi-tool')">
+        <div class="icon">⚖️</div>
+        <h3>ИМТ</h3>
+        <p>Расчёт индекса массы тела.</p>
+      </div>
+
+      <div class="card" data-name="средний балл оценки" onclick="go('grade-tool')">
+        <div class="icon">🎓</div>
+        <h3>Средний балл</h3>
+        <p>Среднее значение списка оценок.</p>
+      </div>
+
+      <div class="card" data-name="пропорция" onclick="go('ratio-tool')">
+        <div class="icon">🧩</div>
+        <h3>Пропорции</h3>
+        <p>Решить простую пропорцию.</p>
+      </div>
+
+      <div class="card" data-name="случайное число random" onclick="go('random-tool')">
+        <div class="icon">🎲</div>
+        <h3>Случайное число</h3>
+        <p>Случайное число из диапазона.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h3 class="category-title">🔐 Генераторы</h3>
+
+    <div class="grid">
+
+      <div class="card" data-name="пароль password" onclick="go('password-tool')">
+        <div class="icon">🔐</div>
+        <h3>Пароль</h3>
+        <p>Случайные пароли нужной длины.</p>
+      </div>
+
+      <div class="card" data-name="ник никнейм игровой" onclick="go('nickname-tool')">
+        <div class="icon">🎮</div>
+        <h3>Никнейм</h3>
+        <p>Генератор игровых ников.</p>
+      </div>
+
+      <div class="card" data-name="идеи генератор" onclick="go('idea-tool')">
+        <div class="icon">💡</div>
+        <h3>Идея</h3>
+        <p>Случайные идеи для проектов.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h3 class="category-title">💻 Для разработчиков</h3>
+
+    <div class="grid">
+
+      <div class="card" data-name="json formatter форматтер" onclick="go('json-tool')">
+        <div class="icon">{ }</div>
+        <h3>JSON Formatter</h3>
+        <p>Красиво отформатировать JSON.</p>
+      </div>
+
+      <div class="card" data-name="json minifier минификатор" onclick="go('jsonmin-tool')">
+        <div class="icon">{}↓</div>
+        <h3>JSON Minifier</h3>
+        <p>Сжать JSON в одну строку.</p>
+      </div>
+
+      <div class="card" data-name="base64 декодер кодирование" onclick="go('base64-tool')">
+        <div class="icon">64</div>
+        <h3>Base64</h3>
+        <p>Кодирование и декодирование Base64.</p>
+      </div>
+
+      <div class="card" data-name="url encode decode ссылка" onclick="go('url-tool')">
+        <div class="icon">🔗</div>
+        <h3>URL Encoder</h3>
+        <p>Кодирование и декодирование URL.</p>
+      </div>
+
+      <div class="card" data-name="html encode decode" onclick="go('html-tool')">
+        <div class="icon">&lt;/&gt;</div>
+        <h3>HTML Encoder</h3>
+        <p>Encode и Decode HTML.</p>
+      </div>
+
+      <div class="card" data-name="uuid" onclick="go('uuid-tool')">
+        <div class="icon">🆔</div>
+        <h3>UUID</h3>
+        <p>Генератор UUID v4.</p>
+      </div>
+
+      <div class="card" data-name="цвет hex color" onclick="go('color-tool')">
+        <div class="icon">🎨</div>
+        <h3>HEX-цвет</h3>
+        <p>Случайный HEX-цвет.</p>
+      </div>
+
+      <div class="card" data-name="jwt decoder токен" onclick="go('jwt-tool')">
+        <div class="icon">JWT</div>
+        <h3>JWT Decoder</h3>
+        <p>Посмотреть payload JWT.</p>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<div class="ad">
+  Здесь позже можно разместить рекламный блок
+</div>
+
+<!-- ИНСТРУМЕНТЫ НАЧИНАЮТСЯ ЗДЕСЬ -->
+
+<section class="tool" id="qr-tool">
+  <div class="box">
+    <h2>▦ QR из текста или ссылки</h2>
+    <p class="desc">Введите ссылку или любой текст.</p>
+    <input id="qrInput" class="input" placeholder="https://example.com">
+    <div class="buttons">
+      <button class="btn primary" onclick="makeQR()">Создать QR</button>
+      <button class="btn secondary" onclick="clearQR()">Очистить</button>
+    </div>
+    <div id="qr" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="wifi-tool">
+  <div class="box">
+    <h2>📶 Wi-Fi → QR</h2>
+    <p class="desc">Введите данные своей Wi-Fi сети.</p>
+    <input id="wifiName" class="input" placeholder="Название Wi-Fi">
+    <input id="wifiPass" class="input" placeholder="Пароль">
+    <select id="wifiType" class="input">
+      <option value="WPA">WPA/WPA2</option>
+      <option value="WEP">WEP</option>
+      <option value="">Без пароля</option>
+    </select>
+    <button class="btn primary" onclick="makeWifiQR()">Создать QR</button>
+    <div id="qrWifi" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="phone-tool">
+  <div class="box">
+    <h2>📱 Телефон → QR</h2>
+    <p class="desc">Создайте QR для быстрого звонка.</p>
+    <input id="phoneNumber" class="input" placeholder="+79991234567">
+    <button class="btn primary" onclick="makePhoneQR()">Создать QR</button>
+    <div id="qrPhone" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="email-tool">
+  <div class="box">
+    <h2>✉️ Email → QR</h2>
+    <p class="desc">Создайте QR для отправки письма.</p>
+    <input id="emailAddress" class="input" placeholder="mail@example.com">
+    <input id="emailSubject" class="input" placeholder="Тема">
+    <textarea id="emailBody" class="input" placeholder="Текст письма"></textarea>
+    <button class="btn primary" onclick="makeEmailQR()">Создать QR</button>
+    <div id="qrEmail" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="contact-tool">
+  <div class="box">
+    <h2>👤 Контакт → QR</h2>
+    <p class="desc">Создайте QR с контактной карточкой.</p>
+    <input id="contactName" class="input" placeholder="Имя">
+    <input id="contactPhone" class="input" placeholder="Телефон">
+    <input id="contactMail" class="input" placeholder="Email">
+    <button class="btn primary" onclick="makeContactQR()">Создать QR</button>
+    <div id="qrContact" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="percent-tool">
+  <div class="box">
+    <h2>% Проценты</h2>
+    <p class="desc">Посчитать X% от числа.</p>
+    <div class="row">
+      <input id="percentNumber" class="input" type="number" placeholder="Число">
+      <input id="percentValue" class="input" type="number" placeholder="Процент">
+    </div>
+    <button class="btn primary" onclick="percent()">Рассчитать</button>
+    <div id="percentResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="discount-tool">
+  <div class="box">
+    <h2>🏷️ Скидка</h2>
+    <p class="desc">Посчитать цену после скидки.</p>
+    <div class="row">
+      <input id="discountPrice" class="input" type="number" placeholder="Цена">
+      <input id="discountValue" class="input" type="number" placeholder="Скидка %">
+    </div>
+    <button class="btn primary" onclick="discount()">Рассчитать</button>
+    <div id="discountResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="markup-tool">
+  <div class="box">
+    <h2>📈 Наценка</h2>
+    <p class="desc">Посчитать цену после наценки.</p>
+    <div class="row">
+      <input id="markupPrice" class="input" type="number" placeholder="Цена">
+      <input id="markupValue" class="input" type="number" placeholder="Наценка %">
+    </div>
+    <button class="btn primary" onclick="markup()">Рассчитать</button>
+    <div id="markupResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="vat-tool">
+  <div class="box">
+    <h2>🧾 НДС</h2>
+    <p class="desc">Добавить НДС к цене.</p>
+    <input id="vatPrice" class="input" type="number" placeholder="Цена">
+    <input id="vatValue" class="input" type="number" value="20" placeholder="НДС %">
+    <button class="btn primary" onclick="vat()">Рассчитать</button>
+    <div id="vatResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="age-tool">
+  <div class="box">
+    <h2>🎂 Возраст</h2>
+    <p class="desc">Расчёт возраста по дате рождения.</p>
+    <input id="birthDate" class="input" type="date">
+    <button class="btn primary" onclick="age()">Рассчитать</button>
+    <div id="ageResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="days-tool">
+  <div class="box">
+    <h2>📅 Дни между датами</h2>
+    <div class="row">
+      <input id="dateOne" class="input" type="date">
+      <input id="dateTwo" class="input" type="date">
+    </div>
+    <button class="btn primary" onclick="daysBetween()">Рассчитать</button>
+    <div id="daysResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="bmi-tool">
+  <div class="box">
+    <h2>⚖️ ИМТ</h2>
+    <p class="desc">Введите рост и вес. Результат носит справочный характер.</p>
+    <div class="row">
+      <input id="bmiHeight" class="input" type="number" placeholder="Рост, см">
+      <input id="bmiWeight" class="input" type="number" placeholder="Вес, кг">
+    </div>
+    <button class="btn primary" onclick="bmi()">Рассчитать</button>
+    <div id="bmiResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="grade-tool">
+  <div class="box">
+    <h2>🎓 Средний балл</h2>
+    <p class="desc">Напишите оценки через запятую.</p>
+    <input id="grades" class="input" placeholder="5, 4, 5, 3, 4">
+    <button class="btn primary" onclick="grades()">Рассчитать</button>
+    <div id="gradeResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="ratio-tool">
+  <div class="box">
+    <h2>🧩 Пропорция</h2>
+    <p class="desc">A : B = C : X</p>
+    <div class="row">
+      <input id="ratioA" class="input" type="number" placeholder="A">
+      <input id="ratioB" class="input" type="number" placeholder="B">
+      <input id="ratioC" class="input" type="number" placeholder="C">
+      <input class="input" value="X = ?" disabled>
+    </div>
+    <button class="btn primary" onclick="ratio()">Рассчитать</button>
+    <div id="ratioResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="random-tool">
+  <div class="box">
+    <h2>🎲 Случайное число</h2>
+    <div class="row">
+      <input id="randomMin" class="input" type="number" value="1">
+      <input id="randomMax" class="input" type="number" value="100">
+    </div>
+    <button class="btn primary" onclick="randomNumber()">Получить</button>
+    <div id="randomResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="password-tool">
+  <div class="box">
+    <h2>🔐 Генератор паролей</h2>
+    <input id="passLength" class="input" type="number" value="18" min="4" max="128">
+    <button class="btn primary" onclick="password()">Создать пароль</button>
+    <div class="result">
+      <input id="passResult" class="input" readonly>
+      <button class="btn secondary" onclick="copyValue('passResult')">Копировать</button>
+    </div>
+  </div>
+</section>
+
+<section class="tool" id="nickname-tool">
+  <div class="box">
+    <h2>🎮 Генератор ников</h2>
+    <button class="btn primary" onclick="nickname()">Создать ник</button>
+    <div id="nickResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="idea-tool">
+  <div class="box">
+    <h2>💡 Генератор идей</h2>
+    <select id="ideaType" class="input">
+      <option>Сайт</option>
+      <option>Приложение</option>
+      <option>Игра</option>
+      <option>Сервис</option>
+      <option>Контент</option>
+    </select>
+    <button class="btn primary" onclick="idea()">Придумать</button>
+    <div id="ideaResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="json-tool">
+  <div class="box">
+    <h2>💻 JSON Formatter</h2>
+    <textarea id="jsonInput" class="input" placeholder='{"name":"Toolix","ok":true}'></textarea>
+    <button class="btn primary" onclick="jsonFormat()">Форматировать</button>
+    <div id="jsonResult" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="jsonmin-tool">
+  <div class="box">
+    <h2>💻 JSON Minifier</h2>
+    <textarea id="jsonMinInput" class="input" placeholder='{"hello":"world"}'></textarea>
+    <button class="btn primary" onclick="jsonMin()">Сжать</button>
+    <div id="jsonMinResult" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="base64-tool">
+  <div class="box">
+    <h2>64 Base64</h2>
+    <textarea id="base64Input" class="input" placeholder="Введите текст"></textarea>
+    <div class="buttons">
+      <button class="btn primary" onclick="base64Encode()">Закодировать</button>
+      <button class="btn secondary" onclick="base64Decode()">Декодировать</button>
+    </div>
+    <div id="base64Result" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="url-tool">
+  <div class="box">
+    <h2>🔗 URL Encoder / Decoder</h2>
+    <textarea id="urlInput" class="input" placeholder="https://example.com/привет"></textarea>
+    <div class="buttons">
+      <button class="btn primary" onclick="urlEncodeTool()">Encode</button>
+      <button class="btn secondary" onclick="urlDecodeTool()">Decode</button>
+    </div>
+    <div id="urlResult" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="html-tool">
+  <div class="box">
+    <h2>&lt;/&gt; HTML Encoder</h2>
+    <textarea id="htmlInput" class="input" placeholder="<div>Hello</div>"></textarea>
+    <div class="buttons">
+      <button class="btn primary" onclick="htmlEncodeTool()">Encode</button>
+      <button class="btn secondary" onclick="htmlDecodeTool()">Decode</button>
+    </div>
+    <div id="htmlResult" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="uuid-tool">
+  <div class="box">
+    <h2>🆔 UUID Generator</h2>
+    <button class="btn primary" onclick="uuid()">Создать UUID</button>
+    <div id="uuidResult" class="result mono"></div>
+  </div>
+</section>
+
+<section class="tool" id="color-tool">
+  <div class="box">
+    <h2>🎨 HEX-цвет</h2>
+    <button class="btn primary" onclick="color()">Сгенерировать</button>
+    <div id="colorResult" class="result"></div>
+  </div>
+</section>
+
+<section class="tool" id="jwt-tool">
+  <div class="box">
+    <h2>JWT Decoder</h2>
+    <p class="desc">Показывает payload локально в браузере. Не отправляет токен на сервер.</p>
+    <textarea id="jwtInput" class="input" placeholder="eyJ..."></textarea>
+    <button class="btn primary" onclick="jwt()">Decode</button>
+    <div id="jwtResult" class="result mono"></div>
+  </div>
+</section>
+
+<div class="ad">
+  Рекламное место №3
+</div>
+
 </main>
 
 <footer>
   <div class="container">
-    © <span id="year"></span> Toolix · Бесплатные инструменты онлайн
+    © <span id="year"></span> Toolix · Бесплатные онлайн-инструменты
   </div>
 </footer>
 
-
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-
-  function scrollToTool(id) {
-    document.getElementById(id).scrollIntoView({
-      behavior: "smooth"
-    });
-  }
-
-
-  function searchTools() {
-    const query = document
-      .getElementById("search")
-      .value
-      .toLowerCase()
-      .trim();
-
-    document.querySelectorAll(".card").forEach(card => {
-      const name = card.dataset.name.toLowerCase();
-
-      if (!query || name.includes(query)) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
-    });
-  }
-
-
-  function generateQR() {
-    const value = document.getElementById("qrInput").value.trim();
-    const container = document.getElementById("qrcode");
-
-    container.innerHTML = "";
-
-    if (!value) {
-      container.innerHTML = "<p style='color:#ff6b78;'>Введите текст или ссылку.</p>";
-      return;
-    }
-
-    new QRCode(container, {
-      text: value,
-      width: 220,
-      height: 220,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  }
-
-
-  function clearQR() {
-    document.getElementById("qrInput").value = "";
-    document.getElementById("qrcode").innerHTML = "";
-  }
-
-
-  function calculatePercent() {
-    const number = Number(document.getElementById("percentNumber").value);
-    const percent = Number(document.getElementById("percentValue").value);
-
-    if (!Number.isFinite(number) || !Number.isFinite(percent)) {
-      showResult("percentResult", "Введите оба числа.");
-      return;
-    }
-
-    const result = number * percent / 100;
-
-    showResult(
-      "percentResult",
-      `${percent}% от ${number} = <strong>${formatNumber(result)}</strong>`
-    );
-  }
-
-
-  function calculateDiscount() {
-    const price = Number(document.getElementById("price").value);
-    const discount = Number(document.getElementById("discount").value);
-
-    if (!Number.isFinite(price) || !Number.isFinite(discount)) {
-      showResult("discountResult", "Введите цену и процент скидки.");
-      return;
-    }
-
-    const saving = price * discount / 100;
-    const finalPrice = price - saving;
-
-    showResult(
-      "discountResult",
-      `
-        Скидка: <strong>${formatNumber(saving)}</strong><br><br>
-        Итоговая цена: <strong>${formatNumber(finalPrice)}</strong>
-      `
-    );
-  }
-
-
-  function calculateAge() {
-    const birth = document.getElementById("birthDate").value;
-
-    if (!birth) {
-      showResult("ageResult", "Выберите дату рождения.");
-      return;
-    }
-
-    const birthDate = new Date(birth + "T00:00:00");
-    const now = new Date();
-
-    let years = now.getFullYear() - birthDate.getFullYear();
-    let months = now.getMonth() - birthDate.getMonth();
-
-    if (
-      months < 0 ||
-      (months === 0 && now.getDate() < birthDate.getDate())
-    ) {
-      years--;
-    }
-
-    const passedBirthday = (
-      now.getMonth() > birthDate.getMonth() ||
-      (
-        now.getMonth() === birthDate.getMonth() &&
-        now.getDate() >= birthDate.getDate()
-      )
-    );
-
-    if (!passedBirthday) {
-      months = months < 0 ? months + 12 : months;
-    }
-
-    showResult(
-      "ageResult",
-      `Ваш возраст: <strong>${years} лет</strong>`
-    );
-  }
-
-
-  function generatePassword() {
-    let length = Number(document.getElementById("passwordLength").value);
-
-    if (!Number.isInteger(length) || length < 4) {
-      length = 16;
-    }
-
-    if (length > 64) {
-      length = 64;
-    }
-
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
-
-    let password = "";
-
-    for (let i = 0; i < length; i++) {
-      password += chars[Math.floor(Math.random() * chars.length)];
-    }
-
-    document.getElementById("passwordResult").value = password;
-  }
-
-
-  function generateNickname() {
-    const a = [
-      "Dark",
-      "Crazy",
-      "Silent",
-      "Lucky",
-      "Ghost",
-      "Cyber",
-      "Ultra",
-      "Frost",
-      "Pixel",
-      "Shadow",
-      "Rapid",
-      "Neon"
-    ];
-
-    const b = [
-      "Fox",
-      "Wolf",
-      "Dragon",
-      "Player",
-      "Ninja",
-      "Storm",
-      "Hunter",
-      "Master",
-      "Core",
-      "Fire",
-      "Blade",
-      "Zero"
-    ];
-
-    const first = a[Math.floor(Math.random() * a.length)];
-    const second = b[Math.floor(Math.random() * b.length)];
-    const number = Math.floor(Math.random() * 9999);
-
-    document.getElementById("nicknameResult").value =
-      first + second + number;
-  }
-
-
-  function generateRandom() {
-    let min = Number(document.getElementById("randomMin").value);
-    let max = Number(document.getElementById("randomMax").value);
-
-    if (!Number.isFinite(min) || !Number.isFinite(max)) {
-      showResult("randomResult", "Введите диапазон.");
-      return;
-    }
-
-    if (min > max) {
-      [min, max] = [max, min];
-    }
-
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
-    const result = Math.floor(
-      Math.random() * (max - min + 1)
-    ) + min;
-
-    showResult(
-      "randomResult",
-      `Случайное число: <strong>${result}</strong>`
-    );
-  }
-
-
-  function copyText(id) {
-    const element = document.getElementById(id);
-    const value = element.value;
-
-    if (!value) return;
-
-    navigator.clipboard.writeText(value)
-      .then(() => {
-        alert("Скопировано!");
-      })
-      .catch(() => {
-        element.select();
-        document.execCommand("copy");
-        alert("Скопировано!");
-      });
-  }
-
-
-  function showResult(id, html) {
-    const element = document.getElementById(id);
-    element.innerHTML = html;
-    element.classList.remove("hidden");
-  }
-
-
-  function formatNumber(number) {
-    return Number(number.toFixed(2)).toLocaleString("ru-RU");
-  }
-
-
-  function generateImageQR() {
-    const input = document.getElementById("imageInput");
-    const container = document.getElementById("imageQr");
-    const info = document.getElementById("imageQrInfo");
-
-    container.innerHTML = "";
-    info.textContent = "";
-
-    if (!input.files || !input.files[0]) {
-      info.textContent = "Сначала выбери изображение.";
-      return;
-    }
-
-    const file = input.files[0];
-
-    /*
-      Важно:
-      QR имеет очень ограниченную ёмкость.
-      Поэтому большие изображения внутрь QR не помещаются.
-      Мы сначала уменьшаем изображение.
-    */
-
-    const reader = new FileReader();
-
-    reader.onload = function(event) {
-      const image = new Image();
-
-      image.onload = function() {
-        const canvas = document.createElement("canvas");
-
-        const maxSize = 180;
-
-        let width = image.width;
-        let height = image.height;
-
-        if (width > height) {
-          if (width > maxSize) {
-            height = Math.round(height * maxSize / width);
-            width = maxSize;
-          }
-        } else {
-          if (height > maxSize) {
-            width = Math.round(width * maxSize / height);
-            height = maxSize;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(image, 0, 0, width, height);
-
-        const data = canvas.toDataURL("image/jpeg", 0.25);
-
-        /*
-          Если картинка всё ещё слишком большая для QR,
-          предупреждаем пользователя.
-        */
-
-        if (data.length > 2500) {
-          info.textContent =
-            "Изображение слишком большое для стандартного QR. Попробуй более маленькую картинку.";
-          return;
-        }
-
-        try {
-          new QRCode(container, {
-            text: data,
-            width: 220,
-            height: 220,
-            correctLevel: QRCode.CorrectLevel.L
-          });
-
-          info.textContent =
-            "Готово. Для больших изображений лучше использовать ссылку на изображение.";
-        } catch (error) {
-          info.textContent =
-            "Не получилось создать QR. Попробуй более маленькое изображение.";
-        }
-      };
-
-      image.src = event.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-
-  document.getElementById("imageInput").addEventListener("change", function() {
-    const file = this.files[0];
-    const preview = document.getElementById("imagePreview");
-
-    if (!file) {
-      preview.style.display = "none";
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-
-    preview.src = url;
-    preview.style.display = "block";
+function $(id){return document.getElementById(id)}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function out(id,text){
+  document.getElementById(id).innerHTML=text;
+}
+
+function esc(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
+
+function copyValue(id){
+  navigator.clipboard.writeText($(id).value).then(
+    ()=>alert("Скопировано!")
+  );
+}
+
+function searchTools(){
+  const q=$("search").value.toLowerCase().trim();
+
+  document.querySelectorAll(".card").forEach(card=>{
+    const n=(card.dataset.name||"").toLowerCase();
+    card.style.display=(!q||n.includes(q))?"":"none";
   });
+}
 
+function makeQRBox(id,text){
+  const el=$(id);
+  el.innerHTML="";
+  if(!text){
+    el.innerHTML='<span class="err">Введите данные.</span>';
+    return;
+  }
+  new QRCode(el,{
+    text:text,
+    width:220,
+    height:220,
+    correctLevel:QRCode.CorrectLevel.M
+  });
+}
+
+function makeQR(){
+  makeQRBox("qr",$("qrInput").value.trim());
+}
+
+function clearQR(){
+  $("qrInput").value="";
+  $("qr").innerHTML="";
+}
+
+function makeWifiQR(){
+  const ssid=$("wifiName").value.trim();
+  const pass=$("wifiPass").value;
+  const type=$("wifiType").value;
+
+  if(!ssid){
+    out("qrWifi",'<span class="err">Введите название сети.</span>');
+    return;
+  }
+
+  const text=`WIFI:T:${type};S:${ssid};P:${pass};;`;
+  makeQRBox("qrWifi",text);
+}
+
+function makePhoneQR(){
+  const n=$("phoneNumber").value.trim();
+  makeQRBox("qrPhone",`tel:${n}`);
+}
+
+function makeEmailQR(){
+  const address=$("emailAddress").value.trim();
+  const subject=encodeURIComponent($("emailSubject").value);
+  const body=encodeURIComponent($("emailBody").value);
+
+  if(!address){
+    out("qrEmail",'<span class="err">Введите email.</span>');
+    return;
+  }
+
+  makeQRBox(
+    "qrEmail",
+    `mailto:${address}?subject=${subject}&body=${body}`
+  );
+}
+
+function makeContactQR(){
+  const name=$("contactName").value.trim();
+  const phone=$("contactPhone").value.trim();
+  const mail=$("contactMail").value.trim();
+
+  const text=[
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `FN:${name}`,
+    `TEL:${phone}`,
+    `EMAIL:${mail}`,
+    "END:VCARD"
+  ].join("\n");
+
+  makeQRBox("qrContact",text);
+}
+
+function percent(){
+  const a=Number($("percentNumber").value);
+  const b=Number($("percentValue").value);
+
+  if(!Number.isFinite(a)||!Number.isFinite(b)){
+    out("percentResult",'<span class="err">Введите числа.</span>');
+    return;
+  }
+
+  out("percentResult",`${b}% от ${a} = <b>${(a*b/100).toLocaleString("ru-RU")}</b>`);
+}
+
+function discount(){
+  const p=Number($("discountPrice").value);
+  const d=Number($("discountValue").value);
+
+  if(!Number.isFinite(p)||!Number.isFinite(d)){
+    out("discountResult",'<span class="err">Введите цену и скидку.</span>');
+    return;
+  }
+
+  const saving=p*d/100;
+  const final=p-saving;
+
+  out(
+    "discountResult",
+    `Экономия: <b>${saving.toLocaleString("ru-RU")}</b><br><br>`+
+    `Итог: <b>${final.toLocaleString("ru-RU")}</b>`
+  );
+}
+
+function markup(){
+  const p=Number($("markupPrice").value);
+  const m=Number($("markupValue").value);
+
+  if(!Number.isFinite(p)||!Number.isFinite(m)){
+    out("markupResult",'<span class="err">Введите цену и наценку.</span>');
+    return;
+  }
+
+  out(
+    "markupResult",
+    `Наценка: <b>${(p*m/100).toLocaleString("ru-RU")}</b><br><br>`+
+    `Итог: <b>${(p+p*m/100).toLocaleString("ru-RU")}</b>`
+  );
+}
+
+function vat(){
+  const p=Number($("vatPrice").value);
+  const v=Number($("vatValue").value);
+
+  if(!Number.isFinite(p)||!Number.isFinite(v)){
+    out("vatResult",'<span class="err">Введите данные.</span>');
+    return;
+  }
+
+  const tax=p*v/100;
+
+  out(
+    "vatResult",
+    `НДС: <b>${tax.toLocaleString("ru-RU")}</b><br><br>`+
+    `Цена с НДС: <b>${(p+tax).toLocaleString("ru-RU")}</b>`
+  );
+}
+
+function age(){
+  const value=$("birthDate").value;
+
+  if(!value){
+    out("ageResult",'<span class="err">Выберите дату.</span>');
+    return;
+  }
+
+  const birth=new Date(value+"T00:00:00");
+  const now=new Date();
+
+  let years=now.getFullYear()-birth.getFullYear();
+
+  const birthdayThisYear=new Date(
+    now.getFullYear(),
+    birth.getMonth(),
+    birth.getDate()
+  );
+
+  if(now<birthdayThisYear) years--;
+
+  out("ageResult",`Возраст: <b>${years} лет</b>`);
+}
+
+function daysBetween(){
+  const a=$("dateOne").value;
+  const b=$("dateTwo").value;
+
+  if(!a||!b){
+    out("daysResult",'<span class="err">Выберите обе даты.</span>');
+    return;
+  }
+
+  const x=new Date(a);
+  const y=new Date(b);
+
+  const diff=Math.abs(y-x);
+  const days=Math.round(diff/86400000);
+
+  out("daysResult",`Разница: <b>${days} дней</b>`);
+}
+
+function bmi(){
+  const h=Number($("bmiHeight").value)/100;
+  const w=Number($("bmiWeight").value);
+
+  if(!h||!w){
+    out("bmiResult",'<span class="err">Введите рост и вес.</span>');
+    return;
+  }
+
+  const value=w/(h*h);
+
+  out("bmiResult",`ИМТ: <b>${value.toFixed(1)}</b>`);
+}
+
+function grades(){
+  const arr=$("grades").value
+    .split(",")
+    .map(x=>Number(x.trim()))
+    .filter(x=>Number.isFinite(x));
+
+  if(!arr.length){
+    out("gradeResult",'<span class="err">Введите оценки через запятую.</span>');
+    return;
+  }
+
+  const avg=arr.reduce((a,b)=>a+b,0)/arr.length;
+
+  out("gradeResult",`Средний балл: <b>${avg.toFixed(2)}</b>`);
+}
+
+function ratio(){
+  const a=Number($("ratioA").value);
+  const b=Number($("ratioB").value);
+  const c=Number($("ratioC").value);
+
+  if(!a||!b||!Number.isFinite(c)){
+    out("ratioResult",'<span class="err">Введите A, B и C.</span>');
+    return;
+  }
+
+  const x=b*c/a;
+
+  out("ratioResult",`X = <b>${x}</b>`);
+}
+
+function randomNumber(){
+  let a=Number($("randomMin").value);
+  let b=Number($("randomMax").value);
+
+  if(!Number.isFinite(a)||!Number.isFinite(b)){
+    out("randomResult",'<span class="err">Введите диапазон.</span>');
+    return;
+  }
+
+  if(a>b)[a,b]=[b,a];
+
+  const result=Math.floor(Math.random()*(Math.floor(b)-Math.ceil(a)+1))+Math.ceil(a);
+
+  out("randomResult",`Случайное число: <b>${result}</b>`);
+}
+
+function password(){
+  const len=Math.min(128,Math.max(4,Number($("passLength").value)||18));
+
+  const chars=
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-+=";
+
+  let s="";
+
+  for(let i=0;i<len;i++){
+    s+=chars[Math.floor(Math.random()*chars.length)];
+  }
+
+  $("passResult").value=s;
+}
+
+function nickname(){
+  const a=[
+    "Dark","Neo","Pixel","Frost","Shadow","Lucky",
+    "Cyber","Rapid","Ultra","Silent","Nova","Ghost"
+  ];
+
+  const b=[
+    "Fox","Wolf","Dragon","Ninja","Storm","Blade",
+    "Hunter","Zero","Core","Byte","Fire","Wave"
+  ];
+
+  const result=
+    a[Math.floor(Math.random()*a.length)]+
+    b[Math.floor(Math.random()*b.length)]+
+    Math.floor(Math.random()*9999);
+
+  out("nickResult",`<b>${result}</b>`);
+}
+
+function idea(){
+  const type=$("ideaType").value;
+
+  const ideas=[
+    "сервис, который делает сложную вещь одной кнопкой",
+    "генератор с историей результатов и настройками",
+    "инструмент для школьников и студентов",
+    "сервис с красивой визуализацией данных",
+    "полезный инструмент для создателей контента",
+    "мини-сервис, который работает полностью в браузере"
+  ];
+
+  const text=ideas[Math.floor(Math.random()*ideas.length)];
+
+  out("ideaResult",`<b>${type}:</b> ${text}.`);
+}
+
+function jsonFormat(){
+  try{
+    const obj=JSON.parse($("jsonInput").value);
+    out("jsonResult",esc(JSON.stringify(obj,null,2)));
+  }catch(e){
+    out("jsonResult",'<span class="err">Некорректный JSON.</span>');
+  }
+}
+
+function jsonMin(){
+  try{
+    const obj=JSON.parse($("jsonMinInput").value);
+    out("jsonMinResult",esc(JSON.stringify(obj)));
+  }catch(e){
+    out("jsonMinResult",'<span class="err">Некорректный JSON.</span>');
+  }
+}
+
+function base64Encode(){
+  const value=$("base64Input").value;
+  const bytes=new TextEncoder().encode(value);
+
+  let binary="";
+
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+
+  out("base64Result",esc(btoa(binary)));
+}
+
+function base64Decode(){
+  try{
+    const binary=atob($("base64Input").value.trim());
+    const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+    out("base64Result",esc(new TextDecoder().decode(bytes)));
+  }catch(e){
+    out("base64Result",'<span class="err">Некорректный Base64.</span>');
+  }
+}
+
+function urlEncodeTool(){
+  out("urlResult",esc(encodeURIComponent($("urlInput").value)));
+}
+
+function urlDecodeTool(){
+  try{
+    out("urlResult",esc(decodeURIComponent($("urlInput").value)));
+  }catch(e){
+    out("urlResult",'<span class="err">Не удалось декодировать.</span>');
+  }
+}
+
+function htmlEncodeTool(){
+  out("htmlResult",esc($("htmlInput").value));
+}
+
+function htmlDecodeTool(){
+  const textarea=document.createElement("textarea");
+  textarea.innerHTML=$("htmlInput").value;
+  out("htmlResult",esc(textarea.value));
+}
+
+function uuid(){
+  const value=crypto.randomUUID
+    ? crypto.randomUUID()
+    : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{
+        const r=Math.random()*16|0;
+        const v=c==="x"?r:(r&3|8);
+        return v.toString(16);
+      });
+
+  out("uuidResult",esc(value));
+}
+
+function color(){
+  const n=Math.floor(Math.random()*16777215);
+  const value="#"+n.toString(16).padStart(6,"0");
+
+  out(
+    "colorResult",
+    `<div style="font-size:18px;font-weight:800">${value}</div>`
+  );
+}
+
+function jwt(){
+  try{
+    const parts=$("jwtInput").value.trim().split(".");
+
+    if(parts.length<2){
+      throw new Error();
+    }
+
+    let s=parts[1]
+      .replace(/-/g,"+")
+      .replace(/_/g,"/");
+
+    while(s.length%4)s+="=";
+
+    const json=atob(s);
+
+    out("jwtResult",esc(json));
+  }catch(e){
+    out("jwtResult",'<span class="err">Не удалось прочитать JWT.</span>');
+  }
+}
 </script>
 
 </body>
